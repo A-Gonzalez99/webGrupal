@@ -1,0 +1,74 @@
+.panelTop{
+    height: 41px;
+    width: 100%;
+    background-color: #0B2130;
+    display: flex; /* Establecemos el contenedor como un flex container */
+    justify-content: space-between; /* Distribuye los elementos con espacio entre ellos */
+    align-items: center; 
+    z-index: 5;
+    position: relative;
+
+}
+
+.panelLefth {
+    height: 100%;
+    width: 215px;
+    background-color: #0B2130;
+    flex-direction: column;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin-top: 61px;
+    margin-bottom: 20px;
+    padding: 20px;
+    z-index: 1;
+    display: flex;
+
+}
+
+.parent-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position:absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+
+}
+
+.hidden {
+    display: none;
+    z-index: 1;
+}
+
+
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    color: #ECECEC;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    -webkit-font-smoothing: antialiased;
+
+    text-rendering: optimizeLegibility;
+  
+    -moz-osx-font-smoothing: grayscale;
+
+    font-feature-settings: 'liga';
+}
+
+
+p{
+    color: aliceblue;
+    cursor: pointer;
+}
+  

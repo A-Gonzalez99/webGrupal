@@ -1,0 +1,33 @@
+
+/*----------------------------------------------*/
+
+.cardStoryBoard{
+    background-color: #0B2130;
+    max-width: 348px;
+    height: auto;
+    margin: 20px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+
+}
+
+.buttonStoryBoard{
+    width: 100%;
+    max-width: 348px;
+    height: 253px;
+    overflow:hidden;
+    border-radius: 0px;
+
+}
+
+.buttonStoryBoard img{
+    height: 105%;
+    border-radius: 0px;
+}
+
+.cardStoryBoard p{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+}

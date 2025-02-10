@@ -1,0 +1,59 @@
+.cardProyect{
+    width: 100%;
+    max-width: 348px;
+    height: 253px;
+    background-color: #0B2130;
+    border-radius: 12px;
+    position: relative; /* Sets the positioning context for child elements */
+   
+    overflow: hidden;
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+.cardProyect img {
+    height: 120%;
+}
+
+.cardProyect p {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    font-weight: 900;
+    padding-top: 6;
+    padding-left: 20px;
+
+    color: white; /* Optional text color (consider contrasting with background) */
+}
+
+.panelTitleCardSelect{
+    position: absolute; /* Positions the text absolutely relative to the button */
+    width: 100%;
+    height: 100%;
+    background-color: #0B2130;
+}
+
+.panelTitleCard{
+    position: absolute; /* Positions the text absolutely relative to the button */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #0B2130, rgba(0, 0, 0, 0)); /* Gradient from black to transparent */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.panelTitleCard p{
+    margin-bottom: 6px;
+}
+
+.proyectContent{
+    display: flex; /* Essential for Flexbox layout */
+    flex-direction: row; /* Arrange items horizontally */
+    flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
+    justify-content: center;
+    padding-bottom: 20px;
+
+}
+

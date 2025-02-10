@@ -1,0 +1,24 @@
+.panelTitle{
+    display: flex; /* Essential for Flexbox layout */
+    flex-direction: row; /* Arrange items horizontally */
+    flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.panelButtons{
+    flex-direction:row;
+    flex-wrap: wrap;
+}
+
+
+.panelHeader{
+    flex-direction:column-reverse;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}

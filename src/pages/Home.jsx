@@ -16,9 +16,9 @@ function Home() {
   const obtenerProyectosUsuario = async (id_usuario) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/usuarios/1`
+        `http://localhost:8080/api/usuarios/`+id_usuario
       );
-      setProyectos(response.data.proyectos); // Guardar los proyectos en el estado
+      setProyectos(response.data); // Guardar los proyectos en el estado
       console.log("Proyectos del usuario:", response.data.proyectos);
       setError(null); // Limpiar errores anteriores
     } catch (err) {
@@ -30,12 +30,12 @@ function Home() {
 
   // Obtener el id_usuario del token y cargar los proyectos cuando el componente se monta
   useEffect(() => {
-    const id_usuario = obtenerIdUsuarioDesdeToken(); // Extraer el ID del token
+    const id_usuario = localStorage.getItem("token"); // Extraer el ID del token
     if (id_usuario) {
       obtenerProyectosUsuario(id_usuario); // Obtener los proyectos del usuario
     } else {
       setError("No se pudo obtener el ID del usuario desde el token.");
-      navigate("/login"); // Redirigir al login si no se pudo obtener el ID del usuario
+      // navigate("/login"); // Redirigir al login si no se pudo obtener el ID del usuario
     }
   }, []);
 

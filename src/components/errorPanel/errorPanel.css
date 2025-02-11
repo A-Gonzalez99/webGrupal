@@ -1,0 +1,37 @@
+.panelError {
+    display: flex; /* Essential for Flexbox layout */
+    flex-direction: row; /* Arrange items horizontally */
+    flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2e292a;
+
+    padding: 12px;
+}
+
+.panelErrorColor {
+   display:flex ;
+    background-color: red;
+    width: 20px;
+    height: 100%;
+
+}
+
+.buttonError {
+   background-color: red;
+   color: white;
+}
+
+.divError{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end
+}
+
+.textError {
+    display: flex; /* Essential for Flexbox layout */
+    flex-direction: row; /* Arrange items horizontally */
+    flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
+    justify-content: space-between;
+    align-items: center;
+}

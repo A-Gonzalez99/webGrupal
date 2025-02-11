@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { login } from "../services/usuarioService";
+import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
 
 export function Login() {
   const navigate = useNavigate();
@@ -41,6 +42,8 @@ export function Login() {
           projects from script to screen.
         </p>
         <div className="panelLogin">
+          <ErrorPanel error={error} set={setError} />
+
           <input className="inputLogin" type="text" 
             placeholder="Email" 
             value={email}   
@@ -52,7 +55,6 @@ export function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {error && <p>{error}</p>}
           <button className="buttonLogin" onClick={() => handleSubmit()}>
             Login
           </button>

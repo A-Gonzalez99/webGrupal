@@ -3,37 +3,40 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GetDataBaseProyect } from '../../../dataBase/DataBaseProyects';
 
-function CardProyects() {
+function CardProyects(db) {
+    console.log("db")
+    console.log(db)
 
-    var db = GetDataBaseProyect();
 
-  return ( 
-    <>
-        {db.map((b, index) => cardProp(b, index))}
-    </>
-  )
+    return (        
+        <>
+            {(
+                db.db.map((proyecto) => cardProp(proyecto, proyecto.id_proyecto))                
+            ) }
+        </>
+    )
 }
 
 function cardProp(props, index) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate = useNavigate();
 
-    function OpenProyect(index){
+    function OpenProyect(index) {
         localStorage.setItem("proyect", index);
         navigate('/proyect')
     }
 
     return (
         <>
-            <button className="cardProyect" onClick={()=>OpenProyect(index)}>
+            <button className="cardProyect" onClick={() => OpenProyect(index)}>
                 <div className='panelTitleCard'>
                     <div className=''>
-                        <p>{props.tittle}</p>
+                        <p>{props.nombre}</p>
                     </div>
 
                 </div>
-                <img src={props.imag} />
-        
+                <img src={props.imagen} />
+
             </button>
         </>
     )

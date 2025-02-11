@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { login } from "../services/api";
+import { login } from "../services/usuarioService";
 
 export function Login() {
   const navigate = useNavigate();
@@ -22,7 +22,8 @@ export function Login() {
       localStorage.setItem("user", JSON.stringify(response.data.user)); // Guardar token
 
       alert("Login exitoso");
-      setError("Correcto");
+      navigate("/home")
+      setError("");
 
     } catch (error) {
       setError("Usuario o contraseña incorrectos");

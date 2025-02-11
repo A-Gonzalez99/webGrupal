@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { Personal } from "../components/Login/Personal";
-import { crearUsuario } from "../services/api";
+import { crearUsuario } from "../services/usuarioService";
 import axios from 'axios';
 
 export function NewAccount() {

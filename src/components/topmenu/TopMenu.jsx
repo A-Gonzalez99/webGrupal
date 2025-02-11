@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import ButtonTopMenu from './ButtonTopMenu'
 import HorizontalDivider from '../HorizontalDivider';
 import { useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams } from "react-router-dom";
 
 /* /usersettings */
 function TopMenu() {
-  
+  const location = useLocation().pathname;
+  console.log(location);
   const button = useRef(null);
   let paragraph = useRef(null);
   
@@ -20,6 +22,18 @@ function TopMenu() {
   
   const navigate = useNavigate();
 
+  const CargarMenu = () => {
+    if (location != "/home" && location != "/usersettings") {
+      return (
+        <>
+          <p onClick={() => navigate("/storyboard")}>Storyboard</p>
+          <p onClick={() => navigate("/locations")}>Locations</p>
+          <p onClick={() => navigate("/sequences")}>Time line</p>
+          <p>Script</p>
+        </>
+      )
+    }
+  }
 
   return (
     <>
@@ -34,10 +48,7 @@ function TopMenu() {
         <div className="panelLefth">
           <p onClick={() => navigate("/home")}>Home</p>
           <HorizontalDivider/>
-          <p onClick={() => navigate("/storyboard")}>Storyboard</p>
-          <p onClick={() => navigate("/locations")}>Locations</p>
-          <p onClick={()=> navigate("/sequences")}>Time line</p>
-          <p>Script</p>
+          <CargarMenu/>
         </div>
       </div>
     </>

@@ -5,7 +5,7 @@ import { RemoveDatabaseStoryBoard } from "../../dataBase/DataBaseStoryBoard";
 import { useNavigate } from "react-router-dom";
 import { RemoveDataBaseLocations } from "../../dataBase/DataBaseLocations";
 
-function RemoveBelow({ text, tipe }) {
+function RemoveBelow({ text, tipe, click }) {
   const popUpRemove = useRef(null);
   const navigate = useNavigate();
   const inputText = useRef(null);
@@ -14,15 +14,7 @@ function RemoveBelow({ text, tipe }) {
 
   function RemoveImage() {
       if (description === "REMOVE") {
-        if(tipe==="0"){
-          const num = localStorage.getItem("date");
-          RemoveDatabaseStoryBoard(num);
-        }
-        if(tipe==="1"){
-          const num = localStorage.getItem("location");
-          RemoveDataBaseLocations(num)
-        }
-        navigate(-1);
+        click();
       }else{
         textInfoRemove.a="removeTextAnim"
       }

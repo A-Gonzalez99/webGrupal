@@ -3,32 +3,53 @@ import Header from "../components/header/Header";
 import TopMenu from "../components/topmenu/TopMenu";
 import PanelButtonsBelow from "../components/Buttons/PanelButtonsBelow";
 import { useNavigate } from "react-router-dom";
-import {
-  GetDataBaseStoryBoard,
-  UpdateDataBaseStoryBoard,
-} from "../dataBase/DataBaseStoryBoard";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import RemoveBelow from "../components/remove/RemoveBelow";
-import {
-  GetStorageLocation,
-  GetStorageStoryBoard,
-} from "../controller/Controller";
-import { GetDataBaseLocations, UpdateDataBaseLocations } from "../dataBase/DataBaseLocations";
+import { GetStorageLocation } from "../controller/Controller";
+import { actualizarStoryboard } from "../services/locationService";
+import { obtenerLocation, eliminarStoryboard } from "../services/locationService";
+import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
+
 
 function EditLocation() {
   const num = GetStorageLocation();
-  const db = GetDataBaseLocations();
   const inputLocation = useRef(null);
   const inputName = useRef(null);
 
-  const [name, setName] = useState(db[num].name);
-  const [location, setLocation] = useState(db[num].location);
+  const [name, setName] = useState();
+  const [location, setLocation] = useState();
   const navigate = useNavigate();
+  const [error, setError] = useState();
+  const [proyecto, setProyecto] = useState([]);
 
-  function Update() {
-    UpdateDataBaseLocations(num, name, location);
-    navigate(-1);
-  }
+  useEffect(() => {
+    obtenerLocation(num, setProyecto, setError);
+    console.log(proyecto);
+  }, []);
+
+  const handleSubmit = async (e) => {
+
+    const datosActualizados = {
+      nombre: name ? name : proyecto.nombre,
+      descripcion: location ? location : proyecto.descripcion,
+      imagen: null,
+      link_map: null
+    };
+
+    try {
+      await actualizarStoryboard(num, datosActualizados);
+      navigate("/locations");
+      setError(null);
+    } catch (err) {
+      setError("Error al actualizar el proyecto. Por favor, intenta de nuevo.");
+    }
+  };
+
+  const deleteImage = async () => {
+    console.log("Delete image");
+    await eliminarStoryboard(num);
+    navigate("/locations");
+  };
 
   return (
     <>
@@ -37,31 +58,29 @@ function EditLocation() {
       <div className="panelCenter">
         <CardUpdateBanner
           text="Update Image"
-          imagen={db[num].imag}
+          imagen=""
           className="bannerUpdate"
         />
       </div>
-
+        <ErrorPanel error={error} set={setError} />
       <div className="contentColum">
         <h2>Name</h2>
-        <input 
-        ref={inputName} 
-        className="inputName" 
-        placeholder="Location name" 
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        <input
+          ref={inputName}
+          className="inputName"
+          placeholder={proyecto ? proyecto.nombre : "Location name"}
+          onChange={(e) => setName(e.target.value)}
         ></input>
         <h2>Direccion</h2>
         <input
           ref={inputLocation}
           className="inputDescription"
-          placeholder="Location direccion"
-          value={location}
+          placeholder={proyecto ? proyecto.descripcion : "Location direccion"}
           onChange={(e) => setLocation(e.target.value)}
         ></input>
       </div>
-      <PanelButtonsBelow clickCreate={() => Update()} text="Save" icon="add" />
-      <RemoveBelow tipe="1" text="Remove Image" />
+      <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={()=>navigate("/locations")} text="Save" icon="add" />
+      <RemoveBelow click={deleteImage} tipe="1" text="Remove Image" />
     </>
   );
 }

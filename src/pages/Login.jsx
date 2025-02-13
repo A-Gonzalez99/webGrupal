@@ -16,13 +16,10 @@ export function Login() {
 
   const handleSubmit = async (e) => {
     console.log("submit");
-    // e.preventDefault();
     try {
       const response = await login(email, password);
-      localStorage.setItem("token", response.data.token); // Guardar token
-      localStorage.setItem("user", JSON.stringify(response.data.user)); // Guardar token
-
-      alert("Login exitoso");
+      localStorage.setItem("token", response.data.token); 
+      localStorage.setItem("user", JSON.stringify(response.data.user));
       navigate("/home")
       setError("");
 
@@ -30,7 +27,6 @@ export function Login() {
       setError("Usuario o contraseña incorrectos");
     }
     console.log(error);
-
   };
 
   return (

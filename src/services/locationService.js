@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/proyectos";
+const API_URL = "http://localhost:8080/api/localizacion";
 
 const api = axios.create({
   baseURL: API_URL,
@@ -8,15 +8,15 @@ const api = axios.create({
 });
 
 // Endpoints de Proyectos
-export const obtenerProyectoPorId = (id) => api.get(`/${id}`);
-export const crearProyecto = (proyecto) => api.post("/", proyecto);
-export const actualizarProyecto = (id, proyecto) => api.put(`/${id}`, proyecto);
-export const eliminarProyecto = (id) => api.delete(`/${id}`);
+export const obtenerLocationPorId = (id) => api.get(`/${id}`);
+export const crearStoryboard = (proyecto) => api.post("/", proyecto);
+export const actualizarStoryboard = (id, proyecto) => api.put(`/${id}`, proyecto);
+export const eliminarStoryboard = (id) => api.delete(`/${id}`);
 
-export const obtenerProyecto = async (id, setProyecto, setError) => {
+export const obtenerStoryBoards = async (id, setProyecto, setError) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/proyectos/${id}`
+      `http://localhost:8080/api/proyectos/${id}/localizaciones`
     );
     console.log(response.data);
     console.log("Proyecto:", response.data.nombre);
@@ -44,10 +44,10 @@ export const obtenerProyecto = async (id, setProyecto, setError) => {
   }
 };
 
-export const obtenerStoryBoards = async (id, setProyecto, setError) => {
+export const obtenerLocation = async (id, setProyecto, setError) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/proyectos/${id}/storyboards`
+      `http://localhost:8080/api/localizacion/${id}`
     );
     console.log(response.data);
     console.log("Proyecto:", response.data.nombre);
@@ -73,6 +73,4 @@ export const obtenerStoryBoards = async (id, setProyecto, setError) => {
     // Retornar null en caso de error
     return null;
   }
-
-  
 };

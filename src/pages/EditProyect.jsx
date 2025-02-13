@@ -1,9 +1,5 @@
 import Header from "../components/header/Header";
-import { ProyectBanner } from "../components/proyect/ProyectBanner";
-import { ProyectDescription } from "../components/proyect/ProyectDespription";
-import { ProyectMenu } from "../components/proyect/ProyectMenu";
-import { ProyectName } from "../components/proyect/ProyectName";
-import ButtonTopMenu from "../components/topmenu/ButtonTopMenu";
+
 import TopMenu from "../components/topmenu/TopMenu";
 import { useNavigate } from "react-router-dom";
 import { GetStorageProyect } from "../controller/Controller";
@@ -28,8 +24,8 @@ export function EditProyect() {
   const [proyecto, setProyecto] = useState();
   const [error, setError] = useState(null);
 
-  const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
+  const [nombre, setNombre] = useState();
+  const [descripcion, setDescripcion] = useState();
 
   useEffect(() => {    
     obtenerProyecto(num,setProyecto,setError);
@@ -39,15 +35,15 @@ export function EditProyect() {
   const handleSubmit = async (e) => {
 
     const datosActualizados = {
-      nombre: nombre,
-      descripcion: descripcion,
-      imagen: "", // Mantén la imagen actual si no se actualiza
+      nombre: nombre ? nombre : proyecto.nombre,
+      descripcion: descripcion ? descripcion : proyecto.descripcion,
+      imagen: "",
     };
 
     try {
-      const proyectoActualizado = await actualizarProyecto(num, datosActualizados);
+      await actualizarProyecto(num, datosActualizados);
       navigate("/proyect");
-      setError(null); // Limpiar errores anteriores
+      setError(null);
     } catch (err) {
       setError("Error al actualizar el proyecto. Por favor, intenta de nuevo.");
     }

@@ -10,7 +10,6 @@ import { GetStorageProyect } from "../controller/Controller";
 import { GetDataBaseProyect } from "../dataBase/DataBaseProyects";
 import React, { useState, useEffect } from "react";
 import { obtenerProyecto } from "../services/proyectoService";
-import axios from "axios";
 
 export function Proyect() {
   const navigate = useNavigate();
@@ -34,8 +33,7 @@ export function Proyect() {
       <Header title="Proyect" button={myItems} />
 
       <div>
-        <div className="contentColum">
-          
+        <div className="contentColum">          
             <ProyectBanner ima={proyecto ? proyecto.imagen : "Cargando nombre..."}/>          
             <ProyectName nam={proyecto ? proyecto.nombre : "Cargando nombre..."} />            
             <ProyectDescription des={proyecto ? proyecto.descripcion : "Cargando descripcion..."}/>

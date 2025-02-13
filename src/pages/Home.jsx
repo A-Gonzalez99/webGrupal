@@ -4,7 +4,6 @@ import Header from "../components/header/Header";
 import ButtonTopMenu from "../components/topmenu/ButtonTopMenu";
 import TopMenu from "../components/topmenu/TopMenu";
 import { useNavigate } from 'react-router-dom';
-import {obtenerIdUsuarioDesdeToken} from '../services/servicesController';
 import axios from 'axios';
 
 function Home() {
@@ -12,30 +11,29 @@ function Home() {
   const [proyectos, setProyectos] = useState([]);
   const [error, setError] = useState(null);
 
-  // Función para obtener los proyectos del usuario
   const obtenerProyectosUsuario = async (id_usuario) => {
     try {
       const response = await axios.get(
         `http://localhost:8080/api/usuarios/`+id_usuario
       );
-      setProyectos(response.data); // Guardar los proyectos en el estado
+      setProyectos(response.data); 
       console.log("Proyectos del usuario:", response.data.proyectos);
-      setError(null); // Limpiar errores anteriores
+      setError(null); 
     } catch (err) {
       console.error("Error al obtener los proyectos:", err.response?.data || err.message);
       setError(err.response?.data || "Error al obtener los proyectos");
-      setProyectos([]); // Limpiar la lista de proyectos en caso de error
+      setProyectos([]); 
     }
   };
 
-  // Obtener el id_usuario del token y cargar los proyectos cuando el componente se monta
+  
   useEffect(() => {
-    const id_usuario = localStorage.getItem("token"); // Extraer el ID del token
+    const id_usuario = localStorage.getItem("token"); 
     if (id_usuario) {
-      obtenerProyectosUsuario(id_usuario); // Obtener los proyectos del usuario
+      obtenerProyectosUsuario(id_usuario); 
     } else {
       setError("No se pudo obtener el ID del usuario desde el token.");
-      // navigate("/login"); // Redirigir al login si no se pudo obtener el ID del usuario
+      navigate("/login");
     }
   }, []);
 

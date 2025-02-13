@@ -3,33 +3,36 @@ import { useRef, useState, useEffect } from "react";
 import { GetDataBaseStoryBoard } from "../../dataBase/DataBaseStoryBoard";
 import { useNavigate } from "react-router-dom";
 import { GetStorageProyect } from "../../controller/Controller";
-import { obtenerProyecto } from "../../services/proyectoService";
+import { obtenerStoryBoards } from "../../services/proyectoService";
 
 export function CardStoryBoard() {
 
   const num = GetStorageProyect();
-  const [proyecto, setProyecto] = useState(null);
-  const [proyecto2, setProyecto2] = useState();
-
+  const [proyecto, setProyecto] = useState([]); // Inicializa como array vacío
   const [error, setError] = useState(null);
 
   useEffect(() => {
 
-    obtenerProyecto(GetStorageProyect(), setProyecto, setError);
+    obtenerStoryBoards(GetStorageProyect(), setProyecto, setError);
+    console.log(proyecto);
+    
+
   }, []);
-  console.log("ST");
-  console.log(proyecto);
-  setProyecto2(proyecto)
-  console.log(proyecto2.toString());
+  return (
+    <div>
+      {proyecto.map((item, index) => (
+        <GetCardStoryBoard  index={item.id_storyboard} item={item} />
+      ))}
+    </div>
+  );
 }
 
-export function GetCardStoryBoard({ index }) {
-  // const db = GetDataBaseStoryBoard();
+export function GetCardStoryBoard({ index, item }) {
   return (
     <>
-      {/* {db.slice(index-1, index).map((b, index) => cardProp(b, index))} */}
+      {cardProp(item, index)}
     </>
-  )
+  );
 }
 
 function cardProp(props, num) {

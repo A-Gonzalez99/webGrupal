@@ -3,26 +3,47 @@ import Header from "../components/header/Header";
 import TopMenu from "../components/topmenu/TopMenu";
 import PanelButtonsBelow from "../components/Buttons/PanelButtonsBelow";
 import { useNavigate } from "react-router-dom";
-import {
-  GetDataBaseStoryBoard,
-  UpdateDataBaseStoryBoard,
-} from "../dataBase/DataBaseStoryBoard";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import RemoveBelow from "../components/remove/RemoveBelow";
 import { GetStorageStoryBoard } from "../controller/Controller";
+import { obtenerStoryBoards, eliminarStoryboard,actualizarStoryboard } from "../services/storyboarService";
 
 function EditImage() {
   const num = GetStorageStoryBoard();
 
-  const db = GetDataBaseStoryBoard();
   const inputText = useRef(null);
-  const [description, setDescription] = useState(db[num].tittle);
+  const [description, setDescription] = useState();
   const navigate = useNavigate();
 
-  function Update() {
-    UpdateDataBaseStoryBoard(num, description);
-    navigate(-1);
-  }
+  const [error, setError] = useState(null);
+  const [proyecto, setProyecto] = useState([]);
+
+  useEffect(() => {
+    obtenerStoryBoards(num, setProyecto, setError);
+    console.log(proyecto);
+  }, []);
+
+  const handleSubmit = async (e) => {
+
+    const datosActualizados = {
+      descripcion: description ? description : proyecto.descripcion,
+      imagen: null,
+    };
+
+    try {
+      await actualizarStoryboard(num, datosActualizados);
+      navigate("/storyboard");
+      setError(null); 
+    } catch (err) {
+      setError("Error al actualizar el proyecto. Por favor, intenta de nuevo.");
+    }
+  };
+
+  const deleteImage = async () => {
+    console.log("Delete image");
+    await eliminarStoryboard(num);
+    navigate("/storyboard");
+  };
 
   return (
     <>
@@ -31,7 +52,7 @@ function EditImage() {
       <div className="panelCenter">
         <CardUpdateBanner
           text="Update Image"
-          imagen={db[num].imag}
+          imagen={""}
           className="bannerUpdate"
         />
       </div>
@@ -41,13 +62,13 @@ function EditImage() {
         <input
           ref={inputText}
           className="inputDescription"
-          placeholder="Proyect description"
-          value={description}
+          placeholder={proyecto ? proyecto.descripcion : "Image description"}
+        
           onChange={(e) => setDescription(e.target.value)}
         ></input>
       </div>
-      <PanelButtonsBelow clickCreate={() => Update()} text="Save" icon="add" />
-      <RemoveBelow tipe="0" text="Remove Image" />
+      <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={()=>navigate("/storyboard")} text="Save" icon="add" />
+      <RemoveBelow click={deleteImage} tipe="0" text="Remove Image" />
     </>
   );
 }

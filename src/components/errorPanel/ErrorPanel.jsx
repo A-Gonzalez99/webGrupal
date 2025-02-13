@@ -9,8 +9,10 @@ export function ErrorPanel ({error, set}){
                 <div className='divError'>
                     <button className="buttonError" onClick={() => set("")}>X</button>
                 </div>
-                <h2>Error</h2>
-                <p className="textError">{error}</p>
+                <div className='divErrorText'>
+                 
+                    <p className="textError">{error}</p>
+                </div>
             </div>            
         );
     }

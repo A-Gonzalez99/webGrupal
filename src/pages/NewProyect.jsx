@@ -3,9 +3,10 @@ import CardUpdateBanner from "../components/cards/cardUpdateBanner/CardUpdateBan
 import Header from "../components/header/Header";
 import TopMenu from "../components/topmenu/TopMenu";
 import PanelButtonsBelow from "../components/Buttons/PanelButtonsBelow";
-import { crearProyecto } from "../services/proyectoService";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { ErrorPanel } from '../components/errorPanel/ErrorPanel';
+import { obtenerIdUsuarioDesdeToken } from '../services/servicesController';
 
 function NewProyect() {
 
@@ -15,40 +16,36 @@ function NewProyect() {
   const [mensaje, setMensaje] = useState('');
 
   const navigate = useNavigate();
-  // Estado para manejar errores
   const [error, setError] = useState(null);
 
-  // Manejar el envío del formulario
   const handleSubmit = async (e) => {
-
     const proyecto = {
       nombre: nombre,
       descripcion: descripcion,
-      imagen: null, // Para manejar la imagen como archivo
+      imagen: null,
       usuario: {
-        "id_usuario": 1 // ID del usuario asociado
+        id_usuario: 1
       }
     };
 
-    try {
-      // Enviar los datos al endpoint de la API
+    try {    
       const response = await axios.post(
-        "http://localhost:8080/api/proyectos", // URL del endpoint
-        proyecto // Datos del proyecto
+        "http://localhost:8080/api/proyectos", 
+        proyecto
       );
 
-      // Manejar la respuesta exitosa
-      console.log("Proyecto creado:", response.data);
-      setError(null); // Limpiar errores anteriores
+      if (nombre !== "") {        
+        console.log("Proyecto creado:", response.data);
+        setError(null);
 
-      // Mostrar un mensaje de éxito o redirigir al usuario
-      alert("Proyecto creado con éxito!");
-      navigate("/home"); // Redirige al login después de la creación
+        navigate("/home");
+      } else {
+        setError("El campo nombre es obligatorio");
+      }
 
     } catch (err) {
-      // Manejar errores
       console.error("Error al crear el proyecto:", err.response?.data || err.message);
-      setError(err.response?.data || "Error al crear el proyecto");
+      setError( "Error al crear el proyecto");
     }
   };
 
@@ -63,6 +60,7 @@ function NewProyect() {
 
 
       <div className="contentColum">
+        <ErrorPanel error={error} set={setError} />
         <h2>Name</h2>
         <input className="inputName"
           placeholder="Proyect name"

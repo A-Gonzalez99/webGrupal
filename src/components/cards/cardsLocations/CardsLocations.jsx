@@ -1,27 +1,38 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { GetDataBaseLocations } from "../../../dataBase/DataBaseLocations";
+import { GetStorageProyect } from "../../../controller/Controller";
+import { obtenerStoryBoards } from "../../../services/locationService";
 
-
+import { useRef, useState, useEffect } from "react";
 
 export function CardsLocations() {
 
-    const db = GetDataBaseLocations();
+    const [proyecto, setProyecto] = useState([]); // Inicializa como array vacío
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        obtenerStoryBoards(GetStorageProyect(), setProyecto, setError);
+        console.log(proyecto);
+
+    }, []);
+    
     return (
-        <>
-            {db.map((b, index) => cardProp(b, index))}
-        </>
-    )
+        <div>
+            {proyecto.map((item, index) => (
+                <GetCardLocation index={item.id_localizacion} item={item} />
+            ))}
+        </div>
+    );
+
 }
 
-export function GetCardLocation({index}){
-    
-    const db = GetDataBaseLocations();
-    return (
-        <>
-            {db.slice(index-1, index).map((b, index) => cardProp(b, index))}
-        </>
-    )
+export function GetCardLocation({ index, item }) {
+  return (
+    <>
+      {cardProp(item, index)}
+    </>
+  );
 }
 
 function cardProp(props, num) {
@@ -38,8 +49,8 @@ function cardProp(props, num) {
             <button onClick={() => enviarDatos(num)} className="cardProyect">
                 <div className='panelTitleCard'>
                     <div className='panelDescriptionLocation'>
-                        <p>{props.name}</p>
-                        <span>{props.location}</span>
+                        <p>{props.nombre}</p>
+                        <span>{props.descripcion}</span>
                     </div>
 
                 </div>

@@ -6,15 +6,13 @@ import TopMenu from "../components/topmenu/TopMenu";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState,useEffect } from "react";
 import { GetDataBaseStoryBoard } from "../dataBase/DataBaseStoryBoard";
-import { obtenerStoryboards } from "../services/storyboarService";
-import { GetStorageProyect } from "../controller/Controller";
+
 
 function Storyboard() {
   const navigate = useNavigate();
   const popUpPresentation = useRef(null);
   const db = GetDataBaseStoryBoard();
   var [imageCounter, setImageCounter] = useState(1);
-
 
   const myItems = [
     <ButtonTopMenu click={() => sowPopUp()} icon={"play_arrow"} text={""} />,

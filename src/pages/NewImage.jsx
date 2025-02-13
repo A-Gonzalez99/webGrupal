@@ -4,6 +4,7 @@ import TopMenu from "../components/topmenu/TopMenu";
 import PanelButtonsBelow from "../components/Buttons/PanelButtonsBelow";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import axios from 'axios';
 
 import {
   PostDataBaseStoryBoard,
@@ -12,12 +13,44 @@ import {
   const navigate = useNavigate();
   const inputText = useRef(null);
 
-  const [description, setDescription] = useState(inputText);
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState(null);
 
   function postImage(){
     PostDataBaseStoryBoard(description);
     navigate(-1);
   }
+
+  const handleSubmit = async (e) => {
+    const ima = {
+      descripcion: description,
+      imagen: null,
+      proyecto: {
+        id_proyecto: localStorage.getItem("proyect")
+      }
+    };
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/storyboard",
+        ima, 
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      console.log("Proyecto creado:", response.data);
+      setError(null);
+      alert("Proyecto creado con éxito!");
+      navigate("/storyboard");
+    } catch (err) {
+      console.error("Error al crear el proyecto:", err.response?.data || err.message);
+      setError(err.response?.data || "Error al crear el proyecto");
+    }
+  };
+
 
   return (
     <>
@@ -31,13 +64,13 @@ import {
         <h2>Description</h2>
         <input
           className="inputDescription"
-          placeholder="Proyect description"
+          placeholder="Image description"
           ref={inputText}
           onChange={(e) => setDescription(e.target.value)}
 
         ></input>
       </div>
-      <PanelButtonsBelow clickCreate={()=>postImage()} text="Create" icon="add" />
+      <PanelButtonsBelow clickCreate={()=>handleSubmit()} text="Create" icon="add" />
     </>
   );
 }

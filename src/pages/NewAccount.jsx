@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { Personal } from "../components/Login/Personal";
-import { crearUsuario } from "../services/usuarioService";
 import axios from 'axios';
 
 export function NewAccount() {
@@ -20,15 +18,13 @@ export function NewAccount() {
   const [anio, setAnio] = useState("");
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
-    // e.preventDefault();  // Evitar el refresco de la página
-  
+  const handleSubmit = async (e) => {  
     const usuarioData = {
       nombre: nombre,
       apellido: apellido,
       correo: email,
       contrasenna: password,
-      fecha_N: `${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`, // Usar el estado de fecha para una fecha dinámica
+      fecha_N: `${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`, 
     };
   
     console.log("Enviando datos:", usuarioData);
@@ -40,22 +36,19 @@ export function NewAccount() {
         }
       });
 
-      console.log("Usuario creado:", response); // Muestra la respuesta completa
+      console.log("Usuario creado:", response); 
   
       alert("Cuenta creada exitosamente");
-      navigate("/login"); // Redirige al login después de la creación
+      navigate("/login"); 
     } catch (error) {
-      console.error("Error completo:", error); // Muestra el objeto de error completo
+      console.error("Error completo:", error);
   
       if (error.response) {
-        // Si hay una respuesta, obtenemos el mensaje de error del backend
         const errorMessage = error.response?.data?.message || "Hubo un error al crear la cuenta.";
         setError(errorMessage);
       } else if (error.request) {
-        // Si no hubo respuesta, el error puede estar en la solicitud
         setError("No se recibió respuesta del servidor. Verifique la conexión.");
       } else {
-        // Cualquier otro error (por ejemplo, de configuración de axios)
         setError("Hubo un error inesperado al intentar crear la cuenta.");
       }
     }

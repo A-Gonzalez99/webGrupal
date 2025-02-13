@@ -5,8 +5,10 @@
     justify-content: space-between;
     align-items: center;
     background-color: #2e292a;
-
+    border-radius: 12px;
     padding: 12px;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 .panelErrorColor {
@@ -32,6 +34,11 @@
     display: flex; /* Essential for Flexbox layout */
     flex-direction: row; /* Arrange items horizontally */
     flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
-    justify-content: space-between;
-    align-items: center;
+}
+
+.divErrorText{
+    display: flex;
+    width: 100%;
+    justify-content: center
+
 }

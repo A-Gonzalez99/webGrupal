@@ -7,6 +7,7 @@ import { useRef, useState, useEffect } from "react";
 import RemoveBelow from "../components/remove/RemoveBelow";
 import { GetStorageStoryBoard } from "../controller/Controller";
 import { obtenerStoryBoards, eliminarStoryboard,actualizarStoryboard } from "../services/storyboarService";
+import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
 
 function EditImage() {
   const num = GetStorageStoryBoard();
@@ -20,11 +21,9 @@ function EditImage() {
 
   useEffect(() => {
     obtenerStoryBoards(num, setProyecto, setError);
-    console.log(proyecto);
   }, []);
 
   const handleSubmit = async (e) => {
-
     const datosActualizados = {
       descripcion: description ? description : proyecto.descripcion,
       imagen: null,
@@ -58,6 +57,7 @@ function EditImage() {
       </div>
 
       <div className="contentColum">
+        <ErrorPanel error={error} set={setError} />
         <h2>Description</h2>
         <input
           ref={inputText}

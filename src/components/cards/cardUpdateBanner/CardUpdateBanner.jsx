@@ -10,7 +10,6 @@ function CardUpdateBanner({text, imagen}) {
         text="Update banner"
     }
 
-    console.log(imagen)
     return (
         <>
             <button className="cardBannerProyect">

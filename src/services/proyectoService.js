@@ -18,8 +18,6 @@ export const obtenerProyecto = async (id, setProyecto, setError) => {
     const response = await axios.get(
       `http://localhost:8080/api/proyectos/${id}`
     );
-    console.log(response.data);
-    console.log("Proyecto:", response.data.nombre);
 
     // Guardar el proyecto en el estado
     setProyecto(response.data);    
@@ -32,7 +30,6 @@ export const obtenerProyecto = async (id, setProyecto, setError) => {
     // Retornar los datos del proyecto
     return response.data;
   } catch (err) {
-    console.error("Error al obtener el proyecto:", err.response?.data || err.message);
 
     // Establecer el error en el estado
     if (setError) {
@@ -49,8 +46,7 @@ export const obtenerStoryBoards = async (id, setProyecto, setError) => {
     const response = await axios.get(
       `http://localhost:8080/api/proyectos/${id}/storyboards`
     );
-    console.log(response.data);
-    console.log("Proyecto:", response.data.nombre);
+   
 
     // Guardar el proyecto en el estado
     setProyecto(response.data);    
@@ -61,10 +57,8 @@ export const obtenerStoryBoards = async (id, setProyecto, setError) => {
     }
 
     // Retornar los datos del proyecto
-    return response.data;
+    return response;
   } catch (err) {
-    console.error("Error al obtener el proyecto:", err.response?.data || err.message);
-
     // Establecer el error en el estado
     if (setError) {
       setError(err.response?.data || "Error al obtener el proyecto");
@@ -73,6 +67,20 @@ export const obtenerStoryBoards = async (id, setProyecto, setError) => {
     // Retornar null en caso de error
     return null;
   }
+};
 
-  
+
+export const obtenerIdPorToken = async (token) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/usuarios/`+token
+    );
+    console.log("Response:", response.data);
+    console.log("Proyectos del usuario:", response.data.id_usuario);
+    return response.data.id_usuario;
+    
+  } catch (err) {
+    console.error("Error al obtener los proyectos:", err.response?.data || err.message);
+    return null;
+  }
 };

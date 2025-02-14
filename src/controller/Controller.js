@@ -24,10 +24,6 @@ function GetStorage(name){
     if (num === null) {
       localStorage.setItem(name, 0);
       num=0;
-      console.log("Clave 'date' creada con la fecha actual:");
-    } else {
-      console.log("Clave 'date' ya existe:", num);
     }
-
     return num
 }

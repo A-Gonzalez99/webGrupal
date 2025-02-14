@@ -81,7 +81,7 @@ function NewLocation() {
           onChange={(e) => setLocation(e.target.value)}
         ></input>
       </div>
-        <PanelButtonsBelow clickCreate={()=>handleSubmit()} text="Create" icon="add"/>
+        <PanelButtonsBelow clickCreate={()=>handleSubmit()} clickCancel={()=>navigate("/locations")} text="Create" icon="add"/>
       
     </>
   );

@@ -12,11 +12,7 @@ export function CardStoryBoard() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-
-    obtenerStoryBoards(GetStorageProyect(), setProyecto, setError);
-    console.log(proyecto);
-    
-
+    obtenerStoryBoards(GetStorageProyect(), setProyecto, setError);    
   }, []);
   return (
     <div>

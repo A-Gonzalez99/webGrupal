@@ -72,3 +72,13 @@ p{
     cursor: pointer;
 }
   
+
+.infoPanal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #0B2130;
+    z-index: 1;
+    position: relative;
+}

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
+import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
+import { crearCuenta } from "../services/usuarioController";
 
 export function NewAccount() {
   const navigate = useNavigate();
@@ -18,42 +20,9 @@ export function NewAccount() {
   const [anio, setAnio] = useState("");
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {  
-    const usuarioData = {
-      nombre: nombre,
-      apellido: apellido,
-      correo: email,
-      contrasenna: password,
-      fecha_N: `${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`, 
-    };
-  
-    console.log("Enviando datos:", usuarioData);
-  
-    try {
-      const response = await axios.post('http://localhost:8080/api/usuarios', usuarioData, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      console.log("Usuario creado:", response); 
-  
-      alert("Cuenta creada exitosamente");
-      navigate("/login"); 
-    } catch (error) {
-      console.error("Error completo:", error);
-  
-      if (error.response) {
-        const errorMessage = error.response?.data?.message || "Hubo un error al crear la cuenta.";
-        setError(errorMessage);
-      } else if (error.request) {
-        setError("No se recibió respuesta del servidor. Verifique la conexión.");
-      } else {
-        setError("Hubo un error inesperado al intentar crear la cuenta.");
-      }
-    }
+  const handleSubmit = async (e) => {
+    crearCuenta(nombre, apellido, email, password, `${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`, setError, changePage);
   };
-  
 
   function Years() {
     var year = 2024;
@@ -85,7 +54,6 @@ export function NewAccount() {
   }
 
   return (
-    
     <>
       <div className="backGroundLoging">
         <h1>Shot Reel</h1>
@@ -95,67 +63,83 @@ export function NewAccount() {
             <div className="LoginSeparator"></div>
             <button className="buttonBack">Company</button>
           </div>
-
+          <ErrorPanel error={error} set={setError} />
           <div className="panelLoginButtonNewUserTop">
-        <input className="inputLogin" type="text" placeholder="Name"
-          value={nombre}   
-          onChange={(e) => setNombre(e.target.value)}
-        />
-        <div className="LoginSeparator"></div>
-        <input className="inputLogin" type="text" placeholder="Last name"
-          value={apellido}   
-          onChange={(e) => setApellido(e.target.value)}
-        />
-      </div>
-      <p
-        style={{
-          color: "#0b2130",
-          margin: "0px",
-          marginTop: "6px",
-          marginRight: "auto",
-          fontWeight: "bold",
-        }}
-      >
-        Birthdate
-      </p>
-      <div className="panelLoginButtonNewUserTop">
-        <select id="day" value={dia} onChange={(e) => setDia(e.target.value)}>
-          <Day></Day>
-        </select>
-        <div style={{ width: "24px" }}></div>
+            <input
+              className="inputLogin"
+              type="text"
+              placeholder="Name"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <div className="LoginSeparator"></div>
+            <input
+              className="inputLogin"
+              type="text"
+              placeholder="Last name"
+              value={apellido}
+              onChange={(e) => setApellido(e.target.value)}
+            />
+          </div>
+          <p
+            style={{
+              color: "#0b2130",
+              margin: "0px",
+              marginTop: "6px",
+              marginRight: "auto",
+              fontWeight: "bold",
+            }}
+          >
+            Birthdate
+          </p>
+          <div className="panelLoginButtonNewUserTop">
+            <select
+              id="day"
+              value={dia}
+              onChange={(e) => setDia(e.target.value)}
+            >
+              <Day></Day>
+            </select>
+            <div style={{ width: "24px" }}></div>
 
-        <select value={mes} onChange={(e) => setMes(e.target.value)}>
-          <option value="1">January </option>
-          <option value="2">February </option>
-          <option value="3">March</option>
-          <option value="4">April</option>
-          <option value="5">May</option>
-          <option value="6">June</option>
-          <option value="7">July</option>
-          <option value="8">August</option>
-          <option value="9">September</option>
-          <option value="10">October</option>
-          <option value="11">November</option>
-          <option value="12">December</option>
-        </select>
-        <div style={{ width: "24px" }}></div>
+            <select value={mes} onChange={(e) => setMes(e.target.value)}>
+              <option value="1">January </option>
+              <option value="2">February </option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <div style={{ width: "24px" }}></div>
 
-        <select value={anio} onChange={(e) => setAnio(e.target.value)}>
-          <Years />
-        </select>
-      </div>
+            <select value={anio} onChange={(e) => setAnio(e.target.value)}>
+              <Years />
+            </select>
+          </div>
 
-      <input className="inputLogin" type="text" placeholder="Email"
-        value={email}   
-        onChange={(e) => setEmail(e.target.value)}
-      />
+          <input
+            className="inputLogin"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-      <input className="inputLogin" type="text" placeholder="Password"
-        value={password}   
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      
-      <p
+          <input
+            className="inputLogin"
+            type="text"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <p
             style={{
               fontSize: "14px",
               color: "#0b2130",

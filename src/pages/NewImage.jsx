@@ -16,10 +16,7 @@ import {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
 
-  function postImage(){
-    PostDataBaseStoryBoard(description);
-    navigate(-1);
-  }
+ 
 
   const handleSubmit = async (e) => {
     const ima = {
@@ -43,7 +40,6 @@ import {
   
       console.log("Proyecto creado:", response.data);
       setError(null);
-      alert("Proyecto creado con éxito!");
       navigate("/storyboard");
     } catch (err) {
       console.error("Error al crear el proyecto:", err.response?.data || err.message);
@@ -70,7 +66,7 @@ import {
 
         ></input>
       </div>
-      <PanelButtonsBelow clickCreate={()=>handleSubmit()} text="Create" icon="add" />
+      <PanelButtonsBelow clickCreate={()=>handleSubmit()} clickCancel={()=>navigate("/storyboard")} text="Create" icon="add" />
     </>
   );
 }

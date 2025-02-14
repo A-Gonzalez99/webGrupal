@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams } 
 /* /usersettings */
 function TopMenu() {
   const location = useLocation().pathname;
-  console.log(location);
   const button = useRef(null);
   let paragraph = useRef(null);
   
@@ -23,7 +22,9 @@ function TopMenu() {
   const navigate = useNavigate();
 
   const CargarMenu = () => {
-    if (location != "/home" && location != "/usersettings") {
+    if (location != "/home" && location != "/usersettings" && location != "/Documentation" &&
+      location != "/reporte"
+    ) {
       return (
         <>
           <p onClick={() => navigate("/storyboard")}>Storyboard</p>
@@ -39,7 +40,11 @@ function TopMenu() {
     <>
       <div className="panelTop">
         <ButtonTopMenu buttonId="button-menu" referen={button} icon="menu" click={()=>sowMenu()}/>
-        <ButtonTopMenu buttonId="button-settings" icon="info"  click={() => navigate("/Documentation")}/>
+
+          <div className="infoPanal"> 
+            <ButtonTopMenu buttonId="button-settings" icon="info"  click={() => navigate("/Documentation")}/>
+            <ButtonTopMenu buttonId="button-settings" icon="bar_chart"  click={() => navigate("/reporte")}/>
+          </div>
 
         <ButtonTopMenu buttonId="button-settings" icon="account_circle"  click={() => navigate("/usersettings")}/>
       </div>

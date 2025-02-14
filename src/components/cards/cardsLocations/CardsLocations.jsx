@@ -1,20 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GetDataBaseLocations } from "../../../dataBase/DataBaseLocations";
+import {useState, useEffect } from "react";
 import { GetStorageProyect } from "../../../controller/Controller";
 import { obtenerStoryBoards } from "../../../services/locationService";
 
-import { useRef, useState, useEffect } from "react";
-
 export function CardsLocations() {
-
     const [proyecto, setProyecto] = useState([]); // Inicializa como array vacío
     const [error, setError] = useState(null);
 
     useEffect(() => {
         obtenerStoryBoards(GetStorageProyect(), setProyecto, setError);
         console.log(proyecto);
-
     }, []);
     
     return (

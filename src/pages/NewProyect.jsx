@@ -6,7 +6,7 @@ import PanelButtonsBelow from "../components/Buttons/PanelButtonsBelow";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ErrorPanel } from '../components/errorPanel/ErrorPanel';
-import { obtenerIdUsuarioDesdeToken } from '../services/servicesController';
+import { obtenerIdPorToken } from '../services/proyectoService';
 
 function NewProyect() {
 
@@ -18,13 +18,16 @@ function NewProyect() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
+
   const handleSubmit = async (e) => {
+    console.log("idUsuario: " + await obtenerIdPorToken(localStorage.getItem("token")));
+
     const proyecto = {
       nombre: nombre,
       descripcion: descripcion,
       imagen: null,
       usuario: {
-        id_usuario: 1
+        id_usuario: await obtenerIdPorToken(localStorage.getItem("token"))
       }
     };
 
@@ -75,7 +78,7 @@ function NewProyect() {
         </input>
 
       </div>
-      <PanelButtonsBelow clickCreate={handleSubmit} text="Create" icon="add" />
+      <PanelButtonsBelow clickCreate={handleSubmit} clickCancel={()=>navigate("/home")} text="Create" icon="add" />
 
     </>
   );

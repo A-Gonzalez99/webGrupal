@@ -12,6 +12,7 @@ import UsersRaw from "../components/actors/UsersRaw";
 import { obtenerProyecto } from "../services/proyectoService";
 import { actualizarProyecto } from "../services/proyectoService";
 import{eliminarProyecto} from "../services/proyectoService";
+import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
 
 export function EditProyect() {
   var num = GetStorageProyect();
@@ -45,12 +46,11 @@ export function EditProyect() {
       navigate("/proyect");
       setError(null);
     } catch (err) {
-      setError("Error al actualizar el proyecto. Por favor, intenta de nuevo.");
+      setError("La descripción supera el límite de 255 caracteres. Por favor, acorta el texto e intenta de nuevo.");
     }
   };
 
   const deleteImage = async () => {
-    console.log("Delete image");
     await eliminarProyecto(num);
     navigate("/home");
   };
@@ -69,6 +69,7 @@ export function EditProyect() {
       </div>
 
       <div className="contentColum">
+        <ErrorPanel error={error} set={setError} />
         <h2>Name</h2>
         <input
           ref={inputName}

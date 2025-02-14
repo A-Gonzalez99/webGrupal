@@ -17,10 +17,8 @@ function Home() {
         `http://localhost:8080/api/usuarios/`+id_usuario
       );
       setProyectos(response.data); 
-      console.log("Proyectos del usuario:", response.data.proyectos);
       setError(null); 
     } catch (err) {
-      console.error("Error al obtener los proyectos:", err.response?.data || err.message);
       setError(err.response?.data || "Error al obtener los proyectos");
       setProyectos([]); 
     }

@@ -19,9 +19,7 @@ export const obtenerStoryBoards = async (id, setProyecto, setError) => {
     const response = await axios.get(
       `http://localhost:8080/api/proyectos/${id}/storyboard`
     );
-    console.log(response.data);
-    console.log("Proyecto:", response.data.nombre);
-
+  
     // Guardar el proyecto en el estado
     setProyecto(response.data);    
 
@@ -33,7 +31,6 @@ export const obtenerStoryBoards = async (id, setProyecto, setError) => {
     // Retornar los datos del proyecto
     return response.data;
   } catch (err) {
-    console.error("Error al obtener el proyecto:", err.response?.data || err.message);
 
     // Establecer el error en el estado
     if (setError) {

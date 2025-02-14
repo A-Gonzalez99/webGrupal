@@ -15,15 +15,10 @@ export function Proyect() {
   const navigate = useNavigate();
   const num = GetStorageProyect();
   const myItems = [<ButtonTopMenu icon={"edit"} text={""} click={() => navigate("/editproyect")}/>];
-  const db = GetDataBaseProyect();
-  console.log(num)
-
-
   const [proyecto, setProyecto] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    
+  useEffect(() => {    
     obtenerProyecto(num,setProyecto,setError);
   }, []);
   

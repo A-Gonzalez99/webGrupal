@@ -1,12 +1,8 @@
 import "./cardsProyects.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GetDataBaseProyect } from "../../../dataBase/DataBaseProyects";
 
 function CardProyects(db) {
-  console.log("db");
-  console.log(db.db.proyectos);
-
   return (
     <>
       {db?.db?.proyectos?.map((proyecto) => (

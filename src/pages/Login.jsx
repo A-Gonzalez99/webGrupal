@@ -1,32 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { login } from "../services/usuarioService";
 import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
+import { iniciarSecion } from "../services/usuarioController";
 
 export function Login() {
   const navigate = useNavigate();
-
-  function changePage(page) {
-    navigate(page);
-  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
-    console.log("submit");
-    try {
-      const response = await login(email, password);
-      localStorage.setItem("token", response.data.token); 
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      navigate("/home")
-      setError("");
-
-    } catch (error) {
-      setError("Usuario o contraseña incorrectos");
-    }
-    console.log(error);
+    iniciarSecion(email, password, setError, navigate);
   };
 
   return (
@@ -57,7 +42,7 @@ export function Login() {
           <p className="buttonPassword">Have you forgotten your password?</p>
           <button
             className="buttonBack"
-            onClick={() => changePage("/newaccount")}
+            onClick={() => navigate("/newaccount")}
           >
             Create new account
           </button>

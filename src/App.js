@@ -17,6 +17,7 @@ import { NewAccount } from './pages/NewAccount';
 import { Proyect } from './pages/Proyect';
 import { EditProyect } from './pages/EditProyect';
 import HtmlIframe from './pages/HtmlIframe';
+import Report from './pages/Report';
 
 function App() {
   return (
@@ -40,7 +41,8 @@ function App() {
         <Route path='/proyect' element={<Proyect/>}/>
         <Route path='/editproyect' element={<EditProyect/>}/>
         <Route path='/Documentation' element={<HtmlIframe />}/>
-      
+        <Route path='/reporte' element={<Report/>}/>
+
         <Route path="*" element={<Login/>}/>
       </Routes>
     </BrowserRouter>

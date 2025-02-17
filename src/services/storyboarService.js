@@ -17,11 +17,13 @@ export const eliminarStoryboard = (id) => api.delete(`/${id}`);
 export const obtenerStoryBoards = async (id, setProyecto, setError) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/proyectos/${id}/storyboard`
+      `http://localhost:8080/api/proyectos/${id}/storyboards`
     );
   
-    // Guardar el proyecto en el estado
-    setProyecto(response.data);    
+    if(setProyecto){
+      // Guardar el proyecto en el estado
+      setProyecto(response.data);    
+    }
 
     // Limpiar errores anteriores
     if (setError) {

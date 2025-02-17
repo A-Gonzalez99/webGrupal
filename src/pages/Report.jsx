@@ -7,28 +7,29 @@ import Header from "../components/header/Header.jsx";
 import "./report.css";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { obtenerDatos } from "../services/servicesController.js";
 
 const Report = () => {
   const [data, setData] = useState([]);
   const chartRef = useRef(null);
-  const tableRef = useRef(null); // Referencia para la tabla
+  const tableRef = useRef(null);
+  const [mockData, setMockData] = useState([]);
 
-  // Datos de ejemplo (simulados)
   useEffect(() => {
-    const mockData = [
-      { id: 1, name: "Usuario 1", proyectos: 5, storyboards: 10, localizaciones: 3 },
-      { id: 2, name: "Usuario 2", proyectos: 3, storyboards: 7, localizaciones: 5 },
-      { id: 3, name: "Usuario 3", proyectos: 8, storyboards: 4, localizaciones: 2 },
-      { id: 4, name: "Usuario 4", proyectos: 2, storyboards: 6, localizaciones: 8 },
-    ];
-    setData(mockData);
+    async function cargarDatos() {
+      const data = await obtenerDatos(); // Esperamos la respuesta
+      setMockData(data); // Guardamos los datos en el estado
+      setData(data)
+    }
+
+    cargarDatos();
   }, []);
+  
 
   // Configuración de columnas para la tabla
   const columns = React.useMemo(
     () => [
-      { Header: "ID", accessor: "id" },
-      { Header: "Nombre", accessor: "name" },
+      { Header: "Correo", accessor: "name" },
       { Header: "Proyectos Creados", accessor: "proyectos" },
       { Header: "Storyboards Creados", accessor: "storyboards" },
       { Header: "Localizaciones Creadas", accessor: "localizaciones" },
@@ -43,25 +44,26 @@ const Report = () => {
 
   // Datos para el gráfico
   const chartData = {
-    labels: data.map((user) => user.name),
+    labels: mockData.map((user) => user.name),
     datasets: [
       {
         label: "Proyectos Creados",
-        data: data.map((user) => user.proyectos),
+        data: mockData.map((user) => user.proyectos),
         backgroundColor: "rgba(75, 192, 192, 0.6)",
       },
       {
         label: "Storyboards Creados",
-        data: data.map((user) => user.storyboards),
+        data: mockData.map((user) => user.storyboards),
         backgroundColor: "rgba(153, 102, 255, 0.6)",
       },
       {
         label: "Localizaciones Creadas",
-        data: data.map((user) => user.localizaciones),
+        data: mockData.map((user) => user.localizaciones),
         backgroundColor: "rgba(255, 159, 64, 0.6)",
       },
     ],
   };
+  
 
   const exportToPDF = async () => {
     const pdf = new jsPDF("p", "mm", "a4"); // Crear un PDF en formato A4
@@ -92,76 +94,80 @@ const Report = () => {
 
   return (
     <>
-
-    <TopMenu />
+      <TopMenu />
       <Header title="Informe de Proyectos" />
-    <div className="panelReport">
-      
-
-    <button
-        onClick={exportToPDF}
-        className="botonExel"
-      >
-        Exportar a PDF
-      </button>
-      <table ref={tableRef}
-        {...getTableProps()}
-        style={{ border: "1px solid black", marginBottom: "20px", width: "100%" }}
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  style={{ border: "1px solid black", padding: "5px", cursor: "pointer" }}
-                >
-                  {column.render("Header")}
-                  <span>
-                    {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <td
-                    {...cell.getCellProps()}
-                    style={{ border: "1px solid black", padding: "5px" }}
+      <div className="panelReport">
+        <button onClick={exportToPDF} className="botonExel">
+          Descargar PDF
+        </button>
+        <table
+          ref={tableRef}
+          {...getTableProps()}
+          style={{
+            border: "1px solid black",
+            marginBottom: "20px",
+            width: "100%",
+          }}
+        >
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    style={{
+                      border: "1px solid black",
+                      padding: "5px",
+                      cursor: "pointer",
+                    }}
                   >
-                    {cell.render("Cell")}
-                  </td>
+                    {column.render("Header")}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? " 🔽"
+                          : " 🔼"
+                        : ""}
+                    </span>
+                  </th>
                 ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td
+                      {...cell.getCellProps()}
+                      style={{ border: "1px solid black", padding: "5px" }}
+                    >
+                      {cell.render("Cell")}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
 
-      {/* Gráfico */}
-      <Bar
-        data={chartData}
-        ref={chartRef}
-        options={{
-          scales: {
-            y: {
-              beginAtZero: true,
+        {/* Gráfico */}
+        <Bar
+          data={chartData}
+          ref={chartRef}
+          options={{
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
             },
-          },
-        }}
-      />
-
-     
-    </div>
+          }}
+        />
+      </div>
     </>
   );
- 
 };
 
 export default Report;

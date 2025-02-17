@@ -7,7 +7,7 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-export const obtenerUsuarios = () => api.get("/");
+export const obtenerUsuarios = () => api.get("");
 export const verificarExistencia = (nickname, email) =>
   api.get(`/exists?nickname=${nickname}&email=${email}`);
 export const login = (email, password) =>

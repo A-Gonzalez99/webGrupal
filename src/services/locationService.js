@@ -13,15 +13,16 @@ export const crearStoryboard = (proyecto) => api.post("/", proyecto);
 export const actualizarStoryboard = (id, proyecto) => api.put(`/${id}`, proyecto);
 export const eliminarStoryboard = (id) => api.delete(`/${id}`);
 
-export const obtenerStoryBoards = async (id, setProyecto, setError) => {
+export const obtenerLocalizaciones = async (id, setProyecto, setError) => {
   try {
     const response = await axios.get(
       `http://localhost:8080/api/proyectos/${id}/localizaciones`
     );
     
-
     // Guardar el proyecto en el estado
-    setProyecto(response.data);    
+    if(setProyecto){
+      setProyecto(response.data);
+    }
 
     // Limpiar errores anteriores
     if (setError) {

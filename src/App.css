@@ -549,7 +549,7 @@ body {
 .backGroundLoging {
   background-color: #0b2130;
   height: 100%;
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   padding-top: 20px;
@@ -737,5 +737,28 @@ body {
   border-radius: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+
+}
+
+.offline-page{
+  background-color: #0b2130;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vw;
+}
+
+.offline-page h1{
+  color: #c0c0c0;
+}
+
+.offline-page h2{
+  color: #ececec;
+}
+
+.offline-page p{
+  padding-right: 20%;
+  padding-left: 20%;
 
 }

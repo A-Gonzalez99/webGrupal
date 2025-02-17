@@ -9,7 +9,6 @@ import axios from 'axios';
 function Home() {
   const navigate = useNavigate();
   const [proyectos, setProyectos] = useState([]);
-  const [error, setError] = useState(null);
 
   const obtenerProyectosUsuario = async (id_usuario) => {
     try {
@@ -17,9 +16,7 @@ function Home() {
         `http://localhost:8080/api/usuarios/`+id_usuario
       );
       setProyectos(response.data); 
-      setError(null); 
     } catch (err) {
-      setError(err.response?.data || "Error al obtener los proyectos");
       setProyectos([]); 
     }
   };
@@ -30,7 +27,6 @@ function Home() {
     if (id_usuario) {
       obtenerProyectosUsuario(id_usuario); 
     } else {
-      setError("No se pudo obtener el ID del usuario desde el token.");
       navigate("/login");
     }
   }, []);

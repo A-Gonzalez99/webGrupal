@@ -8,7 +8,7 @@ import { obtenerStoryBoards } from "../../services/proyectoService";
 export function CardStoryBoard() {
 
   const num = GetStorageProyect();
-  const [proyecto, setProyecto] = useState([]); // Inicializa como array vacío
+  const [proyecto, setProyecto] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -34,7 +34,6 @@ export function GetCardStoryBoard({ index, item }) {
 function cardProp(props, num) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate = useNavigate();
-  // console.log(proyecto);
   function enviarDatos(num) {
     localStorage.setItem("date", num);
     navigate("/editimage");

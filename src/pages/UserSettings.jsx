@@ -5,11 +5,16 @@ function UserSettings() {
 
   const navigate = useNavigate();
 
+  function serrarSecion(){
+    localStorage.setItem("token"," ")
+    navigate("/login")
+  }
+
   return (
     <>
       <TopMenu/>
       <h2>User Settings</h2>
-      <button onClick={()=>navigate("/login")}>Log out</button>
+      <button onClick={()=>serrarSecion()}>Log out</button>
     </>
   )
 }

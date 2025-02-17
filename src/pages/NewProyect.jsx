@@ -43,12 +43,11 @@ function NewProyect() {
 
         navigate("/home");
       } else {
-        setError("El campo nombre es obligatorio");
+        setError("The name field is required.");
       }
 
     } catch (err) {
-      console.error("Error al crear el proyecto:", err.response?.data || err.message);
-      setError( "Error al crear el proyecto");
+      setError( "Error creating project.");
     }
   };
 

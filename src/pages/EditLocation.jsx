@@ -41,7 +41,7 @@ function EditLocation() {
       navigate("/locations");
       setError(null);
     } catch (err) {
-      setError("Error al actualizar el proyecto. Por favor, intenta de nuevo.");
+      setError("Please check that the name and description fields are not deleted and that the description does not exceed 255 characters.");
     }
   };
 

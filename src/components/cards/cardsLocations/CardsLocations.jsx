@@ -5,7 +5,7 @@ import { GetStorageProyect } from "../../../controller/Controller";
 import { obtenerLocalizaciones } from "../../../services/locationService";
 
 export function CardsLocations() {
-    const [proyecto, setProyecto] = useState([]); // Inicializa como array vacío
+    const [proyecto, setProyecto] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {

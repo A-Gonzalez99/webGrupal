@@ -17,11 +17,6 @@ function NewLocation() {
   const [location, setLocation] = useState(inputName);
   const [error, setError] = useState(null);
 
-  function postImage(){
-    PostDataBaseLocations(name, location);
-    navigate(-1);
-  }
-
   const handleSubmit = async (e) => {
     const localizacion = {
       nombre: name,
@@ -32,7 +27,7 @@ function NewLocation() {
         id_proyecto: localStorage.getItem("proyect")
       }
     };
-  
+
     try {
       const response = await axios.post(
         "http://localhost:8080/api/localizacion",
@@ -43,13 +38,11 @@ function NewLocation() {
           },
         }
       );
-        
-      console.log("Localización creada:", response.data);
+
       setError(null);
       navigate("/locations");
     } catch (err) {
-      console.error("Error al crear la localización:", err.response?.data || err.message);
-      setError(err.response?.data || "El campo nombre y descripcion son obligatorio");
+      setError("Please check that the name and description fields are not deleted and that the description does not exceed 255 characters.");
     }
   };
 
@@ -58,31 +51,31 @@ function NewLocation() {
       <TopMenu />
       <Header title="New Location" />
       <div className="panelCenter">
-        <CardUpdateBanner className="bannerUpdate"/>
+        <CardUpdateBanner className="bannerUpdate" />
       </div>
-    
+
       <div className="contentColum">
         <ErrorPanel error={error} set={setError} />
 
         <h2>Name</h2>
-        <input 
-        ref={inputName} 
-        className="inputName" 
-        placeholder="Location name" 
-  
-        onChange={(e) => setName(e.target.value)}
+        <input
+          ref={inputName}
+          className="inputName"
+          placeholder="Location name"
+
+          onChange={(e) => setName(e.target.value)}
         ></input>
         <h2>Direccion</h2>
         <input
           ref={inputLocation}
           className="inputDescription"
           placeholder="Location direccion"
-   
+
           onChange={(e) => setLocation(e.target.value)}
         ></input>
       </div>
-        <PanelButtonsBelow clickCreate={()=>handleSubmit()} clickCancel={()=>navigate("/locations")} text="Create" icon="add"/>
-      
+      <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={() => navigate("/locations")} text="Create" icon="add" />
+
     </>
   );
 }

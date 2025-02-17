@@ -21,6 +21,7 @@ export function NewAccount() {
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
+    console.log(`${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`)
     crearCuenta(nombre, apellido, email, password, `${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`, setError, changePage);
   };
 
@@ -32,11 +33,21 @@ export function NewAccount() {
       dbYear.push({ year: year - i });
     }
 
-    return dbYear.map((yearObj) => (
-      <option key={yearObj.year} value={yearObj.year}>
-        {yearObj.year}
-      </option>
-    ));
+    return (
+      <>
+          {/* Default option */}
+          <option key="default" value="">
+              Year
+          </option>
+
+          {/* Map through the years and render options */}
+          {dbYear.map((yearObj) => (
+              <option key={yearObj.year} value={yearObj.year}>
+                  {yearObj.year}
+              </option>
+          ))}
+      </>
+    );
   }
 
   function Day() {
@@ -46,11 +57,18 @@ export function NewAccount() {
       dbDay.push({ day: i + 1 });
     }
 
-    return dbDay.map((yearObj) => (
-      <option key={yearObj.day} value={yearObj.day}>
-        {yearObj.day}
-      </option>
-    ));
+    return (
+      <>
+        <option key="default" value="">
+          Day
+        </option>
+        {dbDay.map((yearObj) => (
+          <option key={yearObj.day} value={yearObj.day}>
+          {yearObj.day}
+        </option>
+        ))}
+      </>
+    );
   }
 
   return (
@@ -101,8 +119,8 @@ export function NewAccount() {
               <Day></Day>
             </select>
             <div style={{ width: "24px" }}></div>
-
             <select value={mes} onChange={(e) => setMes(e.target.value)}>
+              <option value="default">Month</option>
               <option value="1">January </option>
               <option value="2">February </option>
               <option value="3">March</option>
@@ -133,7 +151,7 @@ export function NewAccount() {
 
           <input
             className="inputLogin"
-            type="text"
+            type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

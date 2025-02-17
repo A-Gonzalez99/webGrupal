@@ -46,7 +46,7 @@ export function EditProyect() {
       navigate("/proyect");
       setError(null);
     } catch (err) {
-      setError("La descripción supera el límite de 255 caracteres. Por favor, acorta el texto e intenta de nuevo.");
+      setError("The description exceeds the 255 character limit. Please shorten the text and try again.");
     }
   };
 
@@ -63,7 +63,7 @@ export function EditProyect() {
       <div className="panelCenter">
         <CardUpdateBanner
           text="Update Image"
-          imagen={proyecto ? proyecto.imagen : "Cargando nombre..."}
+          imagen={proyecto ? proyecto.imagen : "Loading name..."}
           className="bannerUpdate"
         />
       </div>

@@ -5,18 +5,14 @@ import PanelButtonsBelow from "../components/Buttons/PanelButtonsBelow";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from 'axios';
+import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
 
-import {
-  PostDataBaseStoryBoard,
-} from "../dataBase/DataBaseStoryBoard";
-  function NewImage() {
+function NewImage() {
   const navigate = useNavigate();
   const inputText = useRef(null);
 
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
-
- 
 
   const handleSubmit = async (e) => {
     const ima = {
@@ -37,13 +33,11 @@ import {
           },
         }
       );
-  
-      console.log("Proyecto creado:", response.data);
       setError(null);
       navigate("/storyboard");
     } catch (err) {
-      console.error("Error al crear el proyecto:", err.response?.data || err.message);
-      setError(err.response?.data || "Error al crear el proyecto");
+      
+      setError(err.response?.data || "Error creating storyboard.");
     }
   };
 
@@ -57,6 +51,7 @@ import {
       </div>
 
       <div className="contentColum">
+        <ErrorPanel error={error} set={setError} />
         <h2>Description</h2>
         <input
           className="inputDescription"

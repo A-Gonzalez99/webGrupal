@@ -3,13 +3,24 @@ import { obtenerStoryBoards } from "./storyboarService";
 import { obtenerLocalizaciones } from "./locationService"
 
 export const obtenerIdUsuarioDesdeToken = () => {
-  const token = localStorage.getItem("token"); 
-  if (token) {
-    const partes = token.split("-");
-    const idUsuario = partes[partes.length - 1];
-    return parseInt(idUsuario, 10);
+  const token = localStorage.getItem("token");
+  if(window.location.href!="/login") {
+    if (!token) {
+      // Redirect to /login if no token is found
+      window.location.href = "/login";
+      return null;
+    }
   }
-  return null;
+
+  const partes = token.split("-");
+  if (partes.length !== 3) {
+    // Redirect to /login if the token structure is invalid
+    window.location.href = "/login";
+    return null;
+  }
+
+  const idUsuario = partes[partes.length - 1];
+  return parseInt(idUsuario, 10);
 };
 
 export async function obtenerDatos() {

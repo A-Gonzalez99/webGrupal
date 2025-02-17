@@ -34,7 +34,7 @@ function EditImage() {
       navigate("/storyboard");
       setError(null); 
     } catch (err) {
-      setError("Error al actualizar el proyecto. Por favor, intenta de nuevo.");
+      setError("Error updating project. Please try again.");
     }
   };
 

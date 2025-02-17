@@ -19,26 +19,21 @@ export const obtenerLocalizaciones = async (id, setProyecto, setError) => {
       `http://localhost:8080/api/proyectos/${id}/localizaciones`
     );
     
-    // Guardar el proyecto en el estado
     if(setProyecto){
       setProyecto(response.data);
     }
 
-    // Limpiar errores anteriores
     if (setError) {
       setError(null);
     }
 
-    // Retornar los datos del proyecto
     return response.data;
   } catch (err) {
 
-    // Establecer el error en el estado
     if (setError) {
-      setError(err.response?.data || "Error al obtener el proyecto");
+      setError(err.response?.data || "Error getting locations.");
     }
 
-    // Retornar null en caso de error
     return null;
   }
 };
@@ -51,25 +46,19 @@ export const obtenerLocation = async (id, setProyecto, setError) => {
     console.log(response.data);
     console.log("Proyecto:", response.data.nombre);
 
-    // Guardar el proyecto en el estado
     setProyecto(response.data);    
 
-    // Limpiar errores anteriores
     if (setError) {
       setError(null);
     }
 
-    // Retornar los datos del proyecto
     return response.data;
   } catch (err) {
-    console.error("Error al obtener el proyecto:", err.response?.data || err.message);
 
-    // Establecer el error en el estado
     if (setError) {
-      setError(err.response?.data || "Error al obtener el proyecto");
+      setError("Error getting locations.");
     }
 
-    // Retornar null en caso de error
     return null;
   }
 };

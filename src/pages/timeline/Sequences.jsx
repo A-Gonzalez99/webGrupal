@@ -19,9 +19,9 @@ function Sequences() {
       <Header title="Sequences" button={myItems} />
 
       <div >
-      <div className="timeLineP">
+        <div className="timeLineP">
 
-       <TimeLineBlockSequences/>
+        <TimeLineBlockSequences/>
         </div>
         <TimeLineCaptionLableSequiences/>
       </div>

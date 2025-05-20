@@ -2,7 +2,7 @@ import { useRef } from "react";
 import VerticalDivider from "../VerticalDivider";
 import { useNavigate } from 'react-router-dom';
 
-function TimeLineCaption({props,index}) {
+function TimeLineCaption({props,accion}) {
   const panelCaption = useRef(null);
   console.log(props.page)
   function mouseEnter() {
@@ -15,12 +15,12 @@ function TimeLineCaption({props,index}) {
   const navigate = useNavigate();
 
   function changePage(){
-    navigate(props.page)
+    //navigate(url)
   }
 
   return (
     <>
-      <div ref={panelCaption} className="timeLineCaption" onClick={()=>changePage()}>
+      <div ref={panelCaption} className="timeLineCaption" onClick={accion}>
         <div
           onMouseEnter={() => mouseEnter()}
           onMouseLeave={() => mouseEnter()}

@@ -3,6 +3,8 @@ import VerticalDivider from "../VerticalDivider";
 import TimeLineCaption from "./TimeLineCaption";
 import {useState, useEffect } from "react";
 import {obtenerSecuencia} from "../../services/secuenciaService";
+import { GetStorageProyect } from "../../controller/Controller";
+import { useNavigate } from 'react-router-dom';
 
 function TimeLineCaptionLableSequiences() {
 
@@ -14,7 +16,7 @@ function TimeLineCaptionLableSequiences() {
   useEffect(() => {
     const cargarSecuencias = async () => {
       try {
-        const data = await obtenerSecuencia();
+        const data = await obtenerSecuencia(GetStorageProyect());
         setProyecto(data);
         console.error("Secuencias:", proyecto);
       } catch (error) {
@@ -30,6 +32,12 @@ function TimeLineCaptionLableSequiences() {
     }
   }, [proyecto]);
 
+    const navigate = useNavigate();
+  
+    function changePage(){
+      navigate(page)
+    }
+
   return (
     <>
       <div className="panelHeaderLable">
@@ -40,7 +48,13 @@ function TimeLineCaptionLableSequiences() {
       </div>
       <div className="panelColum">
         {proyecto.map((item, index) => (
-          <TimeLineCaption props = {item} key={index} />        
+          <TimeLineCaption props = {item} accion={
+            () => {
+              localStorage.setItem("sequences", item.id_secuencia);
+              navigate(page)
+            }
+            
+          } />        
         ))}      
       </div>
     </>

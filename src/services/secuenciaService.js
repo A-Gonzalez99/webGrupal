@@ -12,10 +12,10 @@ export const crearSecuencia = (proyecto) => api.post("/", proyecto);
 export const actualizarSecuencia = (id, proyecto) => api.put(`/${id}`, proyecto);
 export const eliminarSecuencia = (id) => api.delete(`/${id}`);
 
-export const obtenerSecuencia = async () => {
+export const obtenerSecuencia = async (proyecto) => {
   
     const response = await axios.get(
-      `http://localhost:8080/api/proyectos/1/secuencias`
+      `http://localhost:8080/api/proyectos/${proyecto}/secuencias`
     );
   
        

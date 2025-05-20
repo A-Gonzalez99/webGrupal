@@ -16,6 +16,7 @@ function Home() {
         `http://localhost:8080/api/usuarios/`+id_usuario
       );
       setProyectos(response.data); 
+      console.log(response.data);
     } catch (err) {
       setProyectos([]); 
     }

@@ -25,7 +25,7 @@ function NewProyect() {
     const proyecto = {
       nombre: nombre,
       descripcion: descripcion,
-      imagen: null,
+      imagen: imagen,
       usuario: {
         id_usuario: await obtenerIdPorToken(localStorage.getItem("token"))
       }
@@ -51,6 +51,23 @@ function NewProyect() {
     }
   };
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (e) => {
+      setSelectedFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile) return alert('Selecciona una imagen primero');
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result;
+      console.log("Base64:", base64String);
+      setImagen(base64String);
+    };
+    reader.readAsDataURL(selectedFile);
+  };
 
   return (
     <>
@@ -58,6 +75,12 @@ function NewProyect() {
       <Header title="New Proyect" />
       <div className="panelCenter">
         <CardUpdateBanner className="bannerUpdate" />
+
+         <div>
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+            <button onClick={handleUpload}>Subir Imagen</button>
+          </div>
+
       </div>
 
 

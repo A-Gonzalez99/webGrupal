@@ -18,6 +18,9 @@ export function GetStorageProyect(){
   return GetStorage("proyect")
 }
 
+export function GetStorageSequences(){
+  return GetStorage("sequences")
+}
 
 function GetStorage(name){
     var num = localStorage.getItem(name);

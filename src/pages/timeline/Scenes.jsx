@@ -14,6 +14,7 @@ function Scenes() {
     <ButtonTopMenu icon={"edit"} text={""} click={() => navigate("/newproyect")}/>,
     <ButtonTopMenu icon={"add"} text={""} click={() => navigate("/newproyect")}/>
   ];
+
   return (
     <>
       <TopMenu />
@@ -28,6 +29,7 @@ function Scenes() {
       </div>
     </>
   );
+  
 }
 
 export default Scenes;

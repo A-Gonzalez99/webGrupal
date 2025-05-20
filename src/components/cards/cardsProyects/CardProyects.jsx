@@ -31,6 +31,7 @@ function cardProp(props, index) {
             <p>{props.nombre}</p>
           </div>
         </div>
+            <img src={"data:image/png;base64,"+props.imagen} alt="Vista previa" />
         <img src={props.imagen} />
       </button>
     </>

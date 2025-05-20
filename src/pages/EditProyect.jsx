@@ -27,18 +27,30 @@ export function EditProyect() {
 
   const [nombre, setNombre] = useState();
   const [descripcion, setDescripcion] = useState();
+  const [imagenBase64, setImagenBase64] = useState("");
 
   useEffect(() => {    
     obtenerProyecto(num,setProyecto,setError);
   }, []);
 
+  const handleImagenChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagenBase64(reader.result);
+      console.log(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e) => {
 
     const datosActualizados = {
       nombre: nombre ? nombre : proyecto.nombre,
       descripcion: descripcion ? descripcion : proyecto.descripcion,
-      imagen: "",
+      imagen: imagenBase64 ? imagenBase64.split(',')[1] : proyecto.imagen,
     };
 
     try {
@@ -55,6 +67,10 @@ export function EditProyect() {
     navigate("/home");
   };
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const handleFileChange = (e) => {
+      setSelectedFile(e.target.files[0]);
+  };
  
   return ( 
     <>
@@ -63,8 +79,16 @@ export function EditProyect() {
       <div className="panelCenter">
         <CardUpdateBanner
           text="Update Image"
-          imagen={proyecto ? proyecto.imagen : "Loading name..."}
+          imagen={
+              imagenBase64
+                ? imagenBase64
+                : proyecto && proyecto.imagen
+                  ? "data:image/png;base64," + proyecto.imagen
+                  : "default-image.webp"
+            }          
+            
           className="bannerUpdate"
+          handleFileChange={handleImagenChange} 
         />
       </div>
 

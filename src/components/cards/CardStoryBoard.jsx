@@ -45,7 +45,7 @@ function cardProp(props, num) {
     <>
       <div className="cardStoryBoard">
         <button onClick={() => enviarDatos(num)} className="buttonStoryBoard">
-          <img src={props.imag} />
+          <img src={"data:image/png;base64,"+props.imagen} />
         </button>
         <p>{props.descripcion}</p>
       </div>

@@ -113,13 +113,14 @@ export function NewAccount() {
           <div className="panelLoginButtonNewUserTop">
             <select
               id="day"
+              className="birthdayInput"
               value={dia}
               onChange={(e) => setDia(e.target.value)}
             >
               <Day></Day>
             </select>
             <div style={{ width: "24px" }}></div>
-            <select value={mes} onChange={(e) => setMes(e.target.value)}>
+            <select className="birthdayInput" value={mes} onChange={(e) => setMes(e.target.value)}>
               <option value="default">Month</option>
               <option value="1">January </option>
               <option value="2">February </option>
@@ -136,7 +137,7 @@ export function NewAccount() {
             </select>
             <div style={{ width: "24px" }}></div>
 
-            <select value={anio} onChange={(e) => setAnio(e.target.value)}>
+            <select className="birthdayInput" value={anio} onChange={(e) => setAnio(e.target.value)}>
               <Years />
             </select>
           </div>

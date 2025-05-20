@@ -18,6 +18,19 @@ function EditImage() {
 
   const [error, setError] = useState(null);
   const [proyecto, setProyecto] = useState([]);
+  const [imagenBase64, setImagenBase64] = useState("");
+
+  const handleImagenChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagenBase64(reader.result);
+      console.log(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   useEffect(() => {
     obtenerStoryBoards(num, setProyecto, setError);
@@ -26,7 +39,7 @@ function EditImage() {
   const handleSubmit = async (e) => {
     const datosActualizados = {
       descripcion: description ? description : proyecto.descripcion,
-      imagen: null,
+      imagen: imagenBase64 ? imagenBase64.split(',')[1] : null,
     };
 
     try {
@@ -49,10 +62,18 @@ function EditImage() {
       <TopMenu />
       <Header title="Edit Image" />
       <div className="panelCenter">
-        <CardUpdateBanner
+      <CardUpdateBanner
           text="Update Image"
-          imagen={""}
+          imagen={
+              imagenBase64
+                ? imagenBase64
+                : proyecto && proyecto.imagen
+                  ? "data:image/png;base64," + proyecto.imagen
+                  : "default-image.webp"
+            }          
+            
           className="bannerUpdate"
+          handleFileChange={handleImagenChange} 
         />
       </div>
 

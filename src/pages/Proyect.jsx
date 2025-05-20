@@ -29,7 +29,7 @@ export function Proyect() {
 
       <div>
         <div className="contentColum">          
-            <ProyectBanner ima={proyecto ? proyecto.imagen : "Cargando nombre..."}/>          
+            <ProyectBanner ima={proyecto ? "data:image/png;base64,"+proyecto.imagen : "Cargando nombre..."}/>          
             <ProyectName nam={proyecto ? proyecto.nombre : "Cargando nombre..."} />            
             <ProyectDescription des={proyecto ? proyecto.descripcion : "Cargando descripcion..."}/>
             <ProyectMenu/>

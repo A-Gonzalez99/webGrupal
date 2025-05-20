@@ -25,7 +25,7 @@ export function Login() {
         <div className="panelLogin">
           <ErrorPanel error={error} set={setError} />
 
-          <input className="inputLogin" type="text" 
+          <input className="inputLogin" id="emailInput" type="text" 
             placeholder="Email" 
             value={email}   
             onChange={(e) => setEmail(e.target.value)}

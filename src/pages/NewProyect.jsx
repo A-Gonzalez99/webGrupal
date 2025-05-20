@@ -14,48 +14,67 @@ function NewProyect() {
   const [descripcion, setDescripcion] = useState("");
   const [imagen, setImagen] = useState("");
   const [mensaje, setMensaje] = useState('');
+  const [imagenBase64, setImagenBase64] = useState("");
 
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
+  const handleImagenChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagenBase64(reader.result);
+      console.log(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e) => {
-    console.log("idUsuario: " + await obtenerIdPorToken(localStorage.getItem("token")));
+    e.preventDefault();
+
+  
+
+  try {
+    const token = localStorage.getItem("token");
+    const idUsuario = await obtenerIdPorToken(token);
+
+    if (!nombre) {
+      setError("El campo nombre es obligatorio.");
+      return;
+    }
 
     const proyecto = {
-      nombre: nombre,
-      descripcion: descripcion,
-      imagen: imagen,
+      nombre,
+      descripcion,
+      imagen: imagenBase64.split(',')[1], // base64 string
       usuario: {
-        id_usuario: await obtenerIdPorToken(localStorage.getItem("token"))
+        id_usuario: idUsuario
       }
     };
 
-    try {    
-      const response = await axios.post(
-        "http://localhost:8080/api/proyectos", 
-        proyecto
-      );
+    await axios.post(
+      "http://localhost:8080/api/proyectos",
+      proyecto,
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-      if (nombre !== "") {        
-        console.log("Proyecto creado:", response.data);
-        setError(null);
+    setError(null);
+    navigate("/home");
+  } catch (err) {
+    setError("Error creando el proyecto.");
+  }
+};
 
-        navigate("/home");
-      } else {
-        setError("The name field is required.");
-      }
-
-    } catch (err) {
-      setError( "Error creating project.");
-    }
-  };
 
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
       setSelectedFile(e.target.files[0]);
   };
+
+  
 
   const handleUpload = async () => {
     if (!selectedFile) return alert('Selecciona una imagen primero');
@@ -74,13 +93,31 @@ function NewProyect() {
       <TopMenu />
       <Header title="New Proyect" />
       <div className="panelCenter">
-        <CardUpdateBanner className="bannerUpdate" />
 
-         <div>
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Subir Imagen</button>
-          </div>
+        {/* <div className="cardBannerProyect">
+          <input
+            type="file"
+            onChange={handleImagenChange}
+            accept="image/*"
+            required
+            style={{ display: "none" }}
+            id="banner-input"
+          />
+          <label className="panelTitleCard" htmlFor="banner-input" style={{ cursor: "pointer" }}>
+            <span>Banner</span>
+          </label>
+          <img
+            src={imagenBase64 || "default-image.webp"}
+            alt="Vista previa"
+          />
+        </div> */}
 
+        <CardUpdateBanner className="bannerUpdate" 
+          imagen={imagenBase64} 
+          handleFileChange={handleImagenChange} 
+        />
+        
+       
       </div>
 
 

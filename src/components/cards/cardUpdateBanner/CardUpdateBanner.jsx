@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 
-function CardUpdateBanner({text, imagen}) {
+function CardUpdateBanner({text, imagen,handleFileChange}) {
 
     if(imagen==null){
         imagen = "default-image.webp"
@@ -12,13 +12,23 @@ function CardUpdateBanner({text, imagen}) {
 
     return (
         <>
-            <button className="cardBannerProyect">
-                <div className='panelTitleCard'>
-                    <p className="textUpdateBanner">{text}</p>
-                </div>
-                <img src={imagen}/>
-        
-            </button>
+            <div className="cardBannerProyect">
+                <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    required
+                    style={{ display: "none" }}
+                    id="banner-input"
+                />
+                <label className="panelTitleCard" htmlFor="banner-input" style={{ cursor: "pointer" }}>
+                    <span>Banner</span>
+                </label>
+                <img
+                    src={imagen || "default-image.webp"}
+                    alt="Vista previa"
+                />
+            </div>
         </>
     )
 }

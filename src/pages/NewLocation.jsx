@@ -16,12 +16,26 @@ function NewLocation() {
   const [name, setName] = useState(inputLocation);
   const [location, setLocation] = useState(inputName);
   const [error, setError] = useState(null);
+  const [imagenBase64, setImagenBase64] = useState("");
+
+
+  const handleImagenChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagenBase64(reader.result);
+      console.log(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e) => {
     const localizacion = {
       nombre: name,
       descripcion: location,
-      imagen: null,
+      imagen: imagenBase64 ? imagenBase64.split(',')[1] : null,
       link_map: null,
       proyecto: {
         id_proyecto: localStorage.getItem("proyect")
@@ -51,7 +65,11 @@ function NewLocation() {
       <TopMenu />
       <Header title="New Location" />
       <div className="panelCenter">
-        <CardUpdateBanner className="bannerUpdate" />
+        <CardUpdateBanner
+          className="bannerUpdate"
+          imagen={imagenBase64}
+          handleFileChange={handleImagenChange}
+        />
       </div>
 
       <div className="contentColum">

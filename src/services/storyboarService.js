@@ -43,3 +43,34 @@ export const obtenerStoryBoards = async (id, setProyecto, setError) => {
     return null;
   }
 };
+
+
+export const obtenerStoryBoardId = async (id, setProyecto, setError) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/storyboard/${id}`
+    );
+  
+    if(setProyecto){
+      // Guardar el proyecto en el estado
+      setProyecto(response.data);    
+    }
+
+    // Limpiar errores anteriores
+    if (setError) {
+      setError(null);
+    }
+
+    // Retornar los datos del proyecto
+    return response.data;
+  } catch (err) {
+
+    // Establecer el error en el estado
+    if (setError) {
+      setError(err.response?.data || "Error al obtener el proyecto");
+    }
+
+    // Retornar null en caso de error
+    return null;
+  }
+};

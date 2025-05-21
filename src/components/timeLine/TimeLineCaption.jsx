@@ -26,7 +26,7 @@ function TimeLineCaption({props,accion}) {
           onMouseLeave={() => mouseEnter()}
           className="timeLineCaptionContainer"
         >
-          <div className="colorCaption" style={{ backgroundColor: "#F75931" }}></div>
+          <div className="colorCaption" style={{ backgroundColor: "#"+props.color }}></div>
           <VerticalDivider />
           <div className="nameTimelineContainer">
             <p className="colorTextBlack">{props.nombre}</p>

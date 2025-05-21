@@ -22,3 +22,29 @@ export const obtenerSecuencia = async (proyecto) => {
     return response.data;
   
 };
+
+
+export const obtenerSecuenciaId = async (id, setProyecto, setError) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/secuencias/${id}`
+    );
+    console.log(response.data);
+    console.log("Proyecto:", response.data.nombre);
+
+    setProyecto(response.data);    
+
+    if (setError) {
+      setError(null);
+    }
+
+    return response.data;
+  } catch (err) {
+
+    if (setError) {
+      setError("Error getting locations.");
+    }
+
+    return null;
+  }
+};

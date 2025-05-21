@@ -15,7 +15,7 @@ function NewImage() {
   const [error, setError] = useState(null);
   const [imagenBase64, setImagenBase64] = useState("");
 
- const handleImagenChange = (e) => {
+  const handleImagenChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {

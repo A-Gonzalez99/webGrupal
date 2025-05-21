@@ -50,7 +50,7 @@ function cardProp(props, num) {
                     </div>
 
                 </div>
-                <img src={props.imag} />
+                <img src={"data:image/png;base64,"+props.imagen} />
             </button>
         </>
     )

@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import RemoveBelow from "../components/remove/RemoveBelow";
 import { GetStorageStoryBoard } from "../controller/Controller";
-import { obtenerStoryBoards, eliminarStoryboard,actualizarStoryboard } from "../services/storyboarService";
+import { obtenerStoryBoards, eliminarStoryboard,actualizarStoryboard, obtenerStoryBoardId } from "../services/storyboarService";
 import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
+import { obtenerStoryboardPorId } from "../services/storyboarService";
 
 function EditImage() {
   const num = GetStorageStoryBoard();
@@ -33,7 +34,8 @@ function EditImage() {
   };
 
   useEffect(() => {
-    obtenerStoryBoards(num, setProyecto, setError);
+    obtenerStoryBoardId(num,setProyecto,setError);
+    console.log(proyecto);
   }, []);
 
   const handleSubmit = async (e) => {

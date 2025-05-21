@@ -21,6 +21,19 @@ function EditLocation() {
   const navigate = useNavigate();
   const [error, setError] = useState();
   const [proyecto, setProyecto] = useState([]);
+  const [imagenBase64, setImagenBase64] = useState("");
+
+  const handleImagenChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagenBase64(reader.result);
+      console.log(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   useEffect(() => {
     obtenerLocation(num, setProyecto, setError);
@@ -32,7 +45,7 @@ function EditLocation() {
     const datosActualizados = {
       nombre: name ? name : proyecto.nombre,
       descripcion: location ? location : proyecto.descripcion,
-      imagen: null,
+      imagen: imagenBase64,
       link_map: null
     };
 
@@ -56,10 +69,18 @@ function EditLocation() {
       <TopMenu />
       <Header title="Edit Location" />
       <div className="panelCenter">
-        <CardUpdateBanner
+            <CardUpdateBanner
           text="Update Image"
-          imagen=""
+          imagen={
+              imagenBase64
+                ? imagenBase64
+                : proyecto && proyecto.imagen
+                  ? "data:image/png;base64," + proyecto.imagen
+                  : "default-image.webp"
+            }          
+            
           className="bannerUpdate"
+          handleFileChange={handleImagenChange} 
         />
       </div>
         <ErrorPanel error={error} set={setError} />

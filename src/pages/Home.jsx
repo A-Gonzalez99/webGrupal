@@ -38,7 +38,7 @@ function Home() {
       <TopMenu />
       <Header title="Proyects" button={myItems} />
 
-      <div>
+      <div className="contenedorProyectos">
         <div className="proyectContent">
           <CardProyects db={proyectos} />
         </div>

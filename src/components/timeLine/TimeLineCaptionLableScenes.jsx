@@ -12,7 +12,7 @@ function TimeLineCaptionLableScenes() {
   const page ="/scene"
   const [proyecto, setProyecto] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
     const cargarSecuencias = async () => {
       try {
         const data = await obtenerEscenas(GetStorageSequences());

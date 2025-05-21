@@ -48,12 +48,26 @@
     margin-bottom: 6px;
 }
 
+
+
 .proyectContent{
-    display: flex; /* Essential for Flexbox layout */
-    flex-direction: row; /* Arrange items horizontally */
-    flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding-bottom: 20px;
 
+  
 }
 
+@media (max-width: 768px) {
+  .proyectContent {
+    justify-content: flex-center; /* Center items on smaller screens */
+  }
+}
+
+/*
+    Colores
+    GrisClaro 2d2d2d
+    GrisOscuro 1f1f1f
+    Negro 000000
+*/

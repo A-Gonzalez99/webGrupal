@@ -10,15 +10,15 @@ function TopMenu() {
   const location = useLocation().pathname;
   const button = useRef(null);
   let paragraph = useRef(null);
-  
-  function sowMenu(){
+
+  function sowMenu() {
     if (paragraph.current.className === 'parent-container') {
-      paragraph.current.className  = 'popUpImagesHidden';
+      paragraph.current.className = 'popUpImagesHidden';
     } else {
-      paragraph.current.className  = 'parent-container';
+      paragraph.current.className = 'parent-container';
     }
   }
-  
+
   const navigate = useNavigate();
 
   const CargarMenu = () => {
@@ -27,9 +27,14 @@ function TopMenu() {
     ) {
       return (
         <>
+          <HorizontalDivider />
           <p onClick={() => navigate("/storyboard")}>Storyboard</p>
+          <HorizontalDivider />
           <p onClick={() => navigate("/locations")}>Locations</p>
+          <HorizontalDivider />
           <p onClick={() => navigate("/sequences")}>Time line</p>
+          <HorizontalDivider />
+
           <p>Script</p>
         </>
       )
@@ -39,23 +44,35 @@ function TopMenu() {
   return (
     <>
       <div className="panelTop">
-        <ButtonTopMenu buttonId="button-menu" referen={button} icon="menu" click={()=>sowMenu()}/>
+        <div className="only-mobile">
+          <ButtonTopMenu buttonId="button-menu" referen={button} icon="menu" click={() => sowMenu()} />
+        </div>
 
-          <div className="infoPanal"> 
-            <ButtonTopMenu buttonId="button-settings" icon="info"  click={() => navigate("/Documentation")}/>
-            <ButtonTopMenu buttonId="button-settings" icon="bar_chart"  click={() => navigate("/reporte")}/>
-          </div>
+        <div className="not-mobile">
+          <h2 onClick={() => navigate("/home")}>Shot Reel</h2>
+          <ButtonTopMenu buttonId="button-settings" icon="" texto={"Home"} click={() => navigate("/home")} />
 
-        <ButtonTopMenu buttonId="button-settings" icon="account_circle"  click={() => navigate("/usersettings")}/>
+          {(location !== "/home" && location !== "/usersettings" && location !== "/Documentation" && location !== "/reporte") && (
+            <>
+              <ButtonTopMenu buttonId="button-settings" icon="" texto={"Storyboard"} click={() => navigate("/Storyboard")} />
+              <ButtonTopMenu buttonId="button-settings" icon="" texto={"Locations"} click={() => navigate("/locations")} />
+              <ButtonTopMenu buttonId="button-settings" icon="" texto={"Time line"} click={() => navigate("/sequences")} />
+              <ButtonTopMenu buttonId="button-settings" icon="" texto={"Script"} click={() => navigate("/Home")} />
+            </>
+          )}
+        </div>
+
+        <ButtonTopMenu buttonId="button-settings" icon="account_circle" click={() => navigate("/usersettings")} />
       </div>
 
-      <div id='panel-menu' ref={paragraph}  class="hidden" onMouseLeave={()=>paragraph.current.className  = 'hidden'}>
+      <div id='panel-menu' ref={paragraph} class="hidden" onMouseLeave={() => paragraph.current.className = 'hidden'}>
         <div className="panelLefth">
+          <ButtonTopMenu icon={"close"} text={""} click={() => sowMenu()}/>
           <p onClick={() => navigate("/home")}>Home</p>
-          <HorizontalDivider/>
-          <CargarMenu/>
+          <CargarMenu />
         </div>
       </div>
+
     </>
   )
 }

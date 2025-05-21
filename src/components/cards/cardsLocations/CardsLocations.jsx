@@ -42,7 +42,7 @@ function cardProp(props, num) {
 
     return (
         <>
-            <button onClick={() => enviarDatos(num)} className="cardProyect">
+            <div onClick={() => enviarDatos(num)} className="cardProyect">
                 <div className='panelTitleCard'>
                     <div className='panelDescriptionLocation'>
                         <p>{props.nombre}</p>
@@ -51,7 +51,7 @@ function cardProp(props, num) {
 
                 </div>
                 <img src={"data:image/png;base64,"+props.imagen} />
-            </button>
+            </div>
         </>
     )
 }

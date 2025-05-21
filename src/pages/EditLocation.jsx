@@ -35,7 +35,11 @@ function EditLocation() {
     }
   };
 
+  
+
+
   useEffect(() => {
+        document.title = "Edit Location - Shot Reel";
     obtenerLocation(num, setProyecto, setError);
     console.log(proyecto);
   }, []);
@@ -59,7 +63,7 @@ function EditLocation() {
   };
 
   const deleteImage = async () => {
-    console.log("Delete image");
+    console.log("Delete location");
     await eliminarStoryboard(num);
     navigate("/locations");
   };
@@ -101,7 +105,7 @@ function EditLocation() {
         ></input>
       </div>
       <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={()=>navigate("/locations")} text="Save" icon="add" />
-      <RemoveBelow click={deleteImage} tipe="1" text="Remove Image" />
+      <RemoveBelow click={deleteImage} tipe="1" text="Remove Location" />
     </>
   );
 }

@@ -22,8 +22,10 @@ function Home() {
     }
   };
 
+
   
   useEffect(() => {
+    document.title = "Home - Shot Reel";
     const id_usuario = localStorage.getItem("token"); 
     if (id_usuario) {
       obtenerProyectosUsuario(id_usuario); 

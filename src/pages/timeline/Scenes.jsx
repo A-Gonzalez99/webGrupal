@@ -14,7 +14,7 @@ import PanelButtonsBelow from "../../components/Buttons/PanelButtonsBelow";
 import { eliminarSecuencia, obtenerSecuenciaId } from "../../services/secuenciaService";
 import { actualizarSecuencia } from "../../services/secuenciaService";
 import RemoveBelow from "../../components/remove/RemoveBelow";
-
+import { ProyectBanner } from "../../components/proyect/ProyectBanner";
 
 function Scenes() {
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ function Scenes() {
 
   const myItems = [
     <ButtonTopMenu icon={"edit"} text={""} click={() => sowPopUp(false)}/>,
+        <div style={{ paddingRight: "12px" }}></div>,
     <ButtonTopMenu icon={"add"} text={""} click={() => sowPopUp(true)}/>
   ];
 
@@ -55,6 +56,7 @@ function Scenes() {
   useEffect(() => {
     obtenerSecuenciaId(GetStorageSequences(), setProyecto, setError);
     console.log(proyecto);
+    document.title = "Scenes - Shot Reel";
   }, []);  
 
   const deleteSecuencia = async () => {
@@ -108,6 +110,7 @@ function Scenes() {
   return (
     <>
       <TopMenu />
+      <ProyectBanner/>      
       <Header title="Scenes" button={myItems} />
 
       <div >

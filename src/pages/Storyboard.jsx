@@ -6,7 +6,7 @@ import TopMenu from "../components/topmenu/TopMenu";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState,useEffect } from "react";
 import { GetDataBaseStoryBoard } from "../dataBase/DataBaseStoryBoard";
-
+import { ProyectBanner } from "../components/proyect/ProyectBanner";
 
 function Storyboard() {
   const navigate = useNavigate();
@@ -14,8 +14,14 @@ function Storyboard() {
   const db = GetDataBaseStoryBoard();
   var [imageCounter, setImageCounter] = useState(1);
 
+
+  useEffect(() => {
+    document.title = "Storyboard - Shot Reel";
+  }, []);
+
   const myItems = [
     <ButtonTopMenu click={() => sowPopUp()} icon={"play_arrow"} text={""} />,
+    <div style={{ paddingRight: "12px" }}></div>,
     <ButtonTopMenu
       click={() => navigate("/newimage")}
       icon={"add"}
@@ -47,6 +53,7 @@ function Storyboard() {
   return (
     <>
       <TopMenu />
+      <ProyectBanner/>
       <Header title="Storyboard" button={myItems} />
 
       <div>

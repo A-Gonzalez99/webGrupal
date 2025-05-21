@@ -18,18 +18,19 @@ export function Proyect() {
   const [proyecto, setProyecto] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {    
+  useEffect(() => {
+    document.title = "Proyect - Shot Reel";
     obtenerProyecto(num,setProyecto,setError);
   }, []);
   
   return (
     <>
       <TopMenu />
-      <Header title="Proyect" button={myItems} />
-
+      {/* <Header title="Proyect" button={myItems} /> */}
+      <ProyectBanner/>      
+      <Header title="Proyect" button={myItems} />    
       <div>
         <div className="contentColum">          
-            <ProyectBanner ima={proyecto ? "data:image/png;base64,"+proyecto.imagen : "Cargando nombre..."}/>          
             <ProyectName nam={proyecto ? proyecto.nombre : "Cargando nombre..."} />            
             <ProyectDescription des={proyecto ? proyecto.descripcion : "Cargando descripcion..."}/>
             <ProyectMenu/>

@@ -31,6 +31,7 @@ export function EditProyect() {
 
   useEffect(() => {    
     obtenerProyecto(num,setProyecto,setError);
+    document.title = "Edit Proyect - Shot Reel";
   }, []);
 
   const handleImagenChange = (e) => {

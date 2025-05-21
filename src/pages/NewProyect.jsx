@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ErrorPanel } from '../components/errorPanel/ErrorPanel';
 import { obtenerIdPorToken } from '../services/proyectoService';
+import { useEffect } from "react";
 
 function NewProyect() {
 
@@ -18,6 +19,11 @@ function NewProyect() {
 
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    document.title = "New Proyect - Shot Reel";
+  }, []);
+
 
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
@@ -33,48 +39,45 @@ function NewProyect() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      const idUsuario = await obtenerIdPorToken(token);
 
-  
-
-  try {
-    const token = localStorage.getItem("token");
-    const idUsuario = await obtenerIdPorToken(token);
-
-    if (!nombre) {
-      setError("El campo nombre es obligatorio.");
-      return;
-    }
-
-    const proyecto = {
-      nombre,
-      descripcion,
-      imagen: imagenBase64.split(',')[1], // base64 string
-      usuario: {
-        id_usuario: idUsuario
+      if (!nombre) {
+        setError("El campo nombre es obligatorio.");
+        return;
       }
-    };
 
-    await axios.post(
-      "http://localhost:8080/api/proyectos",
-      proyecto,
-      { headers: { "Content-Type": "application/json" } }
-    );
+      const proyecto = {
+        nombre,
+        descripcion,
+        imagen: imagenBase64.split(',')[1], // base64 string
+        usuario: {
+          id_usuario: idUsuario
+        }
+      };
 
-    setError(null);
-    navigate("/home");
-  } catch (err) {
-    setError("Error creando el proyecto.");
-  }
-};
+      await axios.post(
+        "http://localhost:8080/api/proyectos",
+        proyecto,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      setError(null);
+      navigate("/home");
+    } catch (err) {
+      setError("Error creando el proyecto.");
+    }
+  };
 
 
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
-      setSelectedFile(e.target.files[0]);
+    setSelectedFile(e.target.files[0]);
   };
 
-  
+
 
   const handleUpload = async () => {
     if (!selectedFile) return alert('Selecciona una imagen primero');
@@ -112,12 +115,12 @@ function NewProyect() {
           />
         </div> */}
 
-        <CardUpdateBanner className="bannerUpdate" 
-          imagen={imagenBase64} 
-          handleFileChange={handleImagenChange} 
+        <CardUpdateBanner className="bannerUpdate"
+          imagen={imagenBase64}
+          handleFileChange={handleImagenChange}
         />
-        
-       
+
+
       </div>
 
 
@@ -137,7 +140,7 @@ function NewProyect() {
         </input>
 
       </div>
-      <PanelButtonsBelow clickCreate={handleSubmit} clickCancel={()=>navigate("/home")} text="Create" icon="add" />
+      <PanelButtonsBelow clickCreate={handleSubmit} clickCancel={() => navigate("/home")} text="Create" icon="add" />
 
     </>
   );

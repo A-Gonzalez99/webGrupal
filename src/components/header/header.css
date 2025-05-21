@@ -4,6 +4,7 @@
     flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 
@@ -18,7 +19,16 @@
     flex-direction:column-reverse;
     flex-wrap: wrap;
     padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+
+}
+
+@media (max-width: 768px) {
+  
+  .panelHeader{
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 
 }

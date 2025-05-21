@@ -10,6 +10,7 @@ import { obtenerStoryBoards, eliminarStoryboard,actualizarStoryboard, obtenerSto
 import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
 import { obtenerStoryboardPorId } from "../services/storyboarService";
 
+
 function EditImage() {
   const num = GetStorageStoryBoard();
 
@@ -34,6 +35,7 @@ function EditImage() {
   };
 
   useEffect(() => {
+    document.title = "Edit Image - Shot Reel";
     obtenerStoryBoardId(num,setProyecto,setError);
     console.log(proyecto);
   }, []);

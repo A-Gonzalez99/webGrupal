@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
 import { crearCuenta } from "../services/usuarioController";
+import { useEffect } from "react";
 
 export function NewAccount() {
   const navigate = useNavigate();
@@ -24,6 +25,11 @@ export function NewAccount() {
     console.log(`${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`)
     crearCuenta(nombre, apellido, email, password, `${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`, setError, changePage);
   };
+
+    useEffect(() => {
+      document.title = "New Account - Shot Reel";
+    }, []);
+  
 
   function Years() {
     var year = 2024;

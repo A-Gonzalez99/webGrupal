@@ -40,7 +40,30 @@
 .button-default {
   background-color: #0b2130;
   size: 40;
-  margin: 6px;
+
+  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 100px;
+
+}
+
+.button-default p {
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 0px;
+  font-weight: 700;
+}
+
+
+.button-default span{
+  font-size: 28px;
+}
+
+.button-default:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 32px rgba(31, 31, 31, 0.35); /* Sombra más intensa al hacer hover */
+
 }
 
 .panelButtons {
@@ -54,8 +77,8 @@
 }
 
 .contentColum {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .bannerUpdate {
@@ -65,14 +88,14 @@
 
 .cardBannerProyect {
   width: 100%;
-  max-width: 348px;
-  height: 253px;
+  height: 470px;
   background-color: #0b2130;
   border-radius: 12px;
   position: relative; /* Sets the positioning context for child elements */
 
   overflow: hidden;
   margin-bottom: 0px;
+  z-index: 0;
 }
 
 .cardBannerProyect img {
@@ -92,6 +115,8 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .panelColum {
@@ -246,18 +271,20 @@ input[type="text"]::placeholder {
 }
 
 .popUpRemoveBack {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #080b0a;
-  opacity: 90%;
-  display: flex;
-  justify-content: center;
-  z-index: 10;
-  align-items: center;
-  flex-direction: column;
-  position: fixed;
+      position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #0b2130ec;
+    flex-direction: column;
+    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px); /* Desenfoque del fondo */
+    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari */
+
 }
 
 .popUpRemovePanel {
@@ -672,19 +699,50 @@ input[type="text"]::placeholder {
 }
 
 
-.bannerProyect{
-  width: 100%;
-  height: 500px;
-
-}
-
-.bannerProyect img{
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+.bannerProyect {
+  position: relative;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
+  height: auto;
+  max-height: 400px;
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow: hidden;
+  box-shadow: 0 0px 25px 0px #1f1f1f;;
 }
+
+.bannerProyect img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.proyectTitle {
+  position: absolute;
+  bottom: 10%; /* o ajusta según lo que necesites */
+  left: 5%;
+  z-index: 0;
+ 
+}
+.proyectTitle h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0px 0px 17px rgb(0 0 0 / 97%);
+
+}
+
+.gradientOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%; /* Puedes ajustar la altura del difuminado */
+  background: linear-gradient(to top, rgba(21, 21, 21, 0), transparent);
+  pointer-events: none; /* Asegura que no bloquee clics */
+  z-index: 1;
+}
+
 
 .pBlack{
   color: #080b0a;
@@ -781,8 +839,6 @@ input[type="text"]::placeholder {
 .cardBannerProyect {
   position: relative;
   width: 100%;
-  max-width: 400px;
-  height: 200px;
   overflow: hidden;
   border-radius: 12px;
   margin: 0 auto;
@@ -804,7 +860,7 @@ input[type="text"]::placeholder {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   z-index: 2;
   color: #fff;
   font-size: 2rem;
@@ -819,4 +875,50 @@ input[type="text"]::placeholder {
   background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0.7) 100%);
   z-index: -1;
   border-radius: 12px;
+}
+
+.only-mobile {
+  display: none;
+}
+
+.not-mobile {
+    display: inline-block;
+    display: flex;
+    padding-right: auto;
+    align-items: center;
+}
+
+.not-mobile h2{
+  color: #ffffff !important;
+  margin-top: 0px;  
+  cursor: pointer;
+  margin-right: 24px;
+}
+
+
+@media screen and (max-width: 768px) {
+ .contentColum {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .bannerProyect {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+
+  }
+
+  .only-mobile {
+    display: inline-block;
+  }
+
+  .not-mobile {
+    display: none;
+  }
+
+  .panelCenter{
+    margin-left: 24px;
+    margin-right: 24px;
+  }
 }

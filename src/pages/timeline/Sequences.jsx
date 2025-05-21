@@ -8,9 +8,11 @@ import { useRef, useState } from "react";
 import HorizontalDivider from "../../components/HorizontalDivider";
 import PanelButtonsBelow from "../../components/Buttons/PanelButtonsBelow";
 import { actualizarSecuencia } from "../../services/secuenciaService";
-
+import { ProyectBanner } from "../../components/proyect/ProyectBanner";
 import axios from 'axios';
 import { GetDataBaseSequences } from "../../dataBase/DataBaseSequences";
+import { use } from "react";
+import { useEffect } from "react";
 
 function Sequences() {
   const navigate = useNavigate();
@@ -34,7 +36,10 @@ function Sequences() {
     }
   }
 
- 
+  useEffect(() => {
+    document.title = "Sequences - Shot Reel";
+  }, []);
+
 
   const handleSubmit = async (e) => {
     const ima = {
@@ -70,6 +75,7 @@ function Sequences() {
   return (
     <>
       <TopMenu />
+      <ProyectBanner/>      
       <Header title="Sequences" button={myItems} />
       <div >
         <div className="timeLineP">

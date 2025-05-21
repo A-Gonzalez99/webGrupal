@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from 'axios';
 import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
+import { useEffect } from "react";
 
 function NewImage() {
   const navigate = useNavigate();
@@ -26,6 +27,11 @@ function NewImage() {
       reader.readAsDataURL(file);
     }
   };
+
+    useEffect(() => {
+      document.title = "New Image - Shot Reel";
+    }, []);
+  
 
   const handleSubmit = async (e) => {
     const ima = {
@@ -61,6 +67,7 @@ function NewImage() {
       <Header title="New Image" />
       <div className="panelCenter">
           <CardUpdateBanner 
+            text="Update Image"
             className="bannerUpdate" 
             imagen={imagenBase64} 
             handleFileChange={handleImagenChange} 

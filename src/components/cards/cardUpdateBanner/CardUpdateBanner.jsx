@@ -22,7 +22,7 @@ function CardUpdateBanner({text, imagen,handleFileChange}) {
                     id="banner-input"
                 />
                 <label className="panelTitleCard" htmlFor="banner-input" style={{ cursor: "pointer" }}>
-                    <span>Banner</span>
+                    <span>{text}</span>
                 </label>
                 <img
                     src={imagen || "default-image.webp"}

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from 'axios';
 import { ErrorPanel } from "../components/errorPanel/ErrorPanel";
+import { useEffect } from "react";
 
 function NewLocation() {
   const navigate = useNavigate();
@@ -17,6 +18,10 @@ function NewLocation() {
   const [location, setLocation] = useState(inputName);
   const [error, setError] = useState(null);
   const [imagenBase64, setImagenBase64] = useState("");
+
+  useEffect(() => {
+    document.title = "New Location - Shot Reel";
+  }, []);
 
 
   const handleImagenChange = (e) => {
@@ -66,6 +71,7 @@ function NewLocation() {
       <Header title="New Location" />
       <div className="panelCenter">
         <CardUpdateBanner
+          text="Update location image" 
           className="bannerUpdate"
           imagen={imagenBase64}
           handleFileChange={handleImagenChange}

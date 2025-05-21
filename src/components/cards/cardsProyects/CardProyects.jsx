@@ -25,15 +25,22 @@ function cardProp(props, index) {
 
   return (
     <>
-      <button className="cardProyect" onClick={() => OpenProyect(index)}>
-        <div className="panelTitleCard">
+    <div className="cardInfo" onClick={() => OpenProyect(index)}>
+      <div className="cardProyect">
+        {/* <div className="panelTitleCard">
           <div className="">
             <p>{props.nombre}</p>
           </div>
-        </div>
+        </div> */}
             <img src={"data:image/png;base64,"+props.imagen} alt="Vista previa" />
-        <img src={props.imagen} />
-      </button>
+        {/* <img src={props.imagen} /> */}
+      </div>
+      <div>
+        <h2>{props.nombre}</h2>
+        <p>{props.descripcion}</p>
+
+      </div>
+    </div>
     </>
   );
 }

@@ -1,28 +1,39 @@
 .panelTop{
-    height: 41px;
-    width: 100%;
+    height: 52px;
+    /* width: 100%; */
     background-color: #0B2130;
     display: flex; /* Establecemos el contenedor como un flex container */
     justify-content: space-between; /* Distribuye los elementos con espacio entre ellos */
     align-items: center; 
     z-index: 5;
-    position: relative;
-
+ 
+    padding-right: 10%;
+    padding-left: 10%;
 }
 
 .panelLefth {
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100%;
-    width: 215px;
-    background-color: #0B2130;
+    width: 100%;
+    background-color: #0b2130ec;
     flex-direction: column;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    margin-top: 61px;
-    margin-bottom: 20px;
-    padding: 20px;
-    z-index: 1;
+    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
     display: flex;
+    align-items: center;
+    backdrop-filter: blur(10px); /* Desenfoque del fondo */
+    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari */
 
+}
+
+.panelLefth p{
+    padding-top: 24px;
+    padding-bottom: 24px;
+    color: #ffffff;
+    font-size: 24px;
+    margin-top: 0px;
+    font-weight: 700;
 }
 
 .parent-container {
@@ -77,8 +88,18 @@ p{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    background-color: #0B2130;
+   
+   
     z-index: 1;
     position: relative;
+}
+
+
+@media screen and (max-width: 768px) {
+    .panelTop{
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+  
+    
 }

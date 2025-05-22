@@ -62,9 +62,12 @@ function Storyboard() {
 
   return (
     <>
+    <TopMenu />
+
+    <div className="main-content">
+
       {!showPopup && (
         <>
-          <TopMenu />
           <ProyectBanner />
           <Header title="Storyboard" button={myItems} />
        
@@ -116,6 +119,7 @@ function Storyboard() {
 
         </div>
       </div>
+    </div>
     </>
   );
 }

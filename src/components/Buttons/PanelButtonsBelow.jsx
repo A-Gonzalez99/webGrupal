@@ -9,6 +9,7 @@ function PanelButtonsBelow({icon ,text, clickCreate, clickCancel}) {
         <div className="panelButtonsBelow">
             <div className="panelButtonsBelowContent">
             <ButtonBelow icon={icon} text={text} click={clickCreate} clas={"buttonBelowCreate"}/>
+            <div style={{width: "16px"}}></div>
             <ButtonBelow icon={"close"} text={"Go Back"} 
             
             click={()=> clickCancel ? clickCancel() : navigate("/proyect")} 

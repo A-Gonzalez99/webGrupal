@@ -19,10 +19,12 @@ function Locations() {
   return (
     <>
       <TopMenu />
-      <ProyectBanner />
-      <Header title="Locations" button={myItems} />
-      <div className="proyectContent">
-        <CardsLocations />
+      <div className="main-content">
+        <ProyectBanner />
+        <Header title="Locations" button={myItems} />
+        <div className="proyectContent">
+          <CardsLocations />
+        </div>
       </div>
     </>
   );

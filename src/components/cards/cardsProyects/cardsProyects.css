@@ -1,7 +1,7 @@
 .cardProyect{
     width: 100%;
    
-    height: 253px;
+    height: 266px;
     background-color: #0B2130;
     border-radius: 12px;
     position: relative; /* Sets the positioning context for child elements */
@@ -15,7 +15,7 @@
 }
 
 .cardInfo{
-    max-width: 500px;
+    max-width: 506px;
     margin: 20px;
     cursor: pointer;
 }
@@ -99,18 +99,11 @@
     flex-wrap: wrap;
     justify-content: center;
     padding-bottom: 20px;
-    margin-left: 10%;
-    margin-right: 10%;
-  
 }
 
 
 @media (max-width: 768px) {
-  .proyectContent {
-    justify-content: flex-center; /* Center items on smaller screens */
-     margin-left: 24px;
-    margin-right: 24px;
-  }
+  
   .contenedorProyectos {
     padding-left: 0%;
     padding-right: 0%;

@@ -64,6 +64,7 @@ function NewImage() {
   return (
     <>
       <TopMenu />
+      <div className="main-content">
       <Header title="New Image" />
       <div className="panelCenter">
           <CardUpdateBanner 
@@ -86,6 +87,7 @@ function NewImage() {
         ></input>
       </div>
       <PanelButtonsBelow clickCreate={()=>handleSubmit()} clickCancel={()=>navigate("/storyboard")} text="Create" icon="add" />
+      </div>
     </>
   );
 }

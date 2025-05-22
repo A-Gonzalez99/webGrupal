@@ -75,13 +75,11 @@ function Sequences() {
   return (
     <>
       <TopMenu />
+      <div className="main-content">
       <ProyectBanner/>      
       <Header title="Sequences" button={myItems} />
 
       <div className="contentColum">
-        <div className="timeLineP">
-
-        </div>
         <TimeLineCaptionLableSequiences/>
       </div>
 
@@ -133,10 +131,9 @@ function Sequences() {
             icon="new"
           />
         </div>
-      
       </div>
-
-    </>
+          </div>
+    </>   
   );
 
 }

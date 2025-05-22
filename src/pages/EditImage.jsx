@@ -64,6 +64,7 @@ function EditImage() {
   return (
     <>
       <TopMenu />
+      <div className="main-content">
       <Header title="Edit Image" />
       <div className="panelCenter">
       <CardUpdateBanner
@@ -94,7 +95,7 @@ function EditImage() {
       </div>
       <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={()=>navigate("/storyboard")} text="Save" icon="add" />
       <RemoveBelow click={deleteImage} tipe="0" text="Remove Image" />
-    </>
+      </div>    </>
   );
 }
 

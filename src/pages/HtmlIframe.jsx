@@ -9,7 +9,7 @@ const HtmlIframe = () => {
       <iframe
         src="/DocumentaciónHTML/Sistema de ayuda para ShotReel.html"
         title="Sistema de Ayuda ShotReel"
-        style={{ width: "100%", height: "100vw", border: "none" }}
+        style={{ width: "100%", height: "100vh", border: "none" }}
       />
     </div>
   );

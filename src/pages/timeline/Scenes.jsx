@@ -153,81 +153,78 @@ function Scenes() {
   return (
     <>
       <TopMenu />
-      <ProyectBanner />
-      <Header title={"Scenes to " + proyecto.nombre} button={myItems} />
+      <div className="main-content">
+        <ProyectBanner />
+        <Header title={"Scenes to " + proyecto.nombre} button={myItems} />
 
-      <div className="contentColum">
-        <div className="timeLineP">
-
-        </div>
         <TimeLineCaptionLableScenes edit={
           () => {
             sowPopUp(false, true);
           }
         } />
-      </div>
 
-      <div ref={popUpRemove} className="hidden">
-        <div className="popUpRemovePanel">
-          <p>{isNew ? "Add new scene" : isScene ? "Edit scene" : "Edit sequence"}</p>
-          <HorizontalDivider />
+        <div ref={popUpRemove} className="hidden">
+          <div className="popUpRemovePanel">
+            <p>{isNew ? "Add new scene" : isScene ? "Edit scene" : "Edit sequence"}</p>
+            <HorizontalDivider />
 
-          <p>Name</p>
-          <input
-          className="inputName"
-            style={{paddingRight: "0px", paddingLeft: "10px"}}
-            onChange={(e) => setInputText(e.target.value)}
-            type="text"
-            value={inputText}
-            placeholder="Name"
+            <p>Name</p>
+            <input
+              className="inputName"
+              style={{ paddingRight: "0px", paddingLeft: "10px" }}
+              onChange={(e) => setInputText(e.target.value)}
+              type="text"
+              value={inputText}
+              placeholder="Name"
+            />
+
+            <p>Start"</p>
+            <input
+              className="inputName"
+              style={{ paddingRight: "0px", paddingLeft: "10px" }}
+              onChange={(e) => setInputStart(e.target.value)}
+              type="number"
+              value={inputStart}
+              placeholder="0"
+            />
+
+            <p>End"</p>
+            <input
+              className="inputName"
+              style={{ paddingRight: "0px", paddingLeft: "10px" }}
+              onChange={(e) => setInputEnd(e.target.value)}
+              type="number"
+              value={inputEnd}
+              placeholder="1"
+            />
+
+            <p>Color</p>
+            <input
+              className="inputName"
+              style={{
+                paddingRight: "0px",
+                paddingLeft: "0px",
+                backgroundColor: inputColor,
+              }}
+
+              onChange={(e) => setInputColor(e.target.value)}
+              type="color"
+              value={inputColor}
+            />
+
+            {!isNew && (
+              <RemoveBelow click={isScene ? deleteEscena : deleteSecuencia} tipe="1" text={isScene ? "Delete scene" : "Delete sequence"} />
+            )}
+
+          </div>
+
+          <PanelButtonsBelow
+            clickCreate={() => isNew ? handleSubmit() : isScene ? handleUpdateScene() : handleUpdate()}
+            clickCancel={() => sowPopUp(true)}
+            text={isNew ? "Create" : "Update"}
+            icon={isNew ? "add" : "update"}
           />
-
-          <p>Start"</p>
-          <input
-          className="inputName"
-            style={{paddingRight: "0px", paddingLeft: "10px"}}
-            onChange={(e) => setInputStart(e.target.value)}
-            type="number"
-            value={inputStart}
-            placeholder="0"
-          />
-
-          <p>End"</p>
-          <input
-          className="inputName"
-            style={{paddingRight: "0px", paddingLeft: "10px"}}
-            onChange={(e) => setInputEnd(e.target.value)}
-            type="number"
-            value={inputEnd}
-            placeholder="1"
-          />
-
-          <p>Color</p>
-          <input
-            className="inputName"
-            style={{
-              paddingRight: "0px",
-              paddingLeft: "0px",
-              backgroundColor: inputColor,
-            }}
-
-            onChange={(e) => setInputColor(e.target.value)}
-            type="color"
-            value={inputColor}
-          />
-
-          {!isNew && (
-            <RemoveBelow click={isScene ? deleteEscena : deleteSecuencia} tipe="1" text={isScene ? "Delete scene" : "Delete sequence"} />
-          )}
-
         </div>
-
-        <PanelButtonsBelow
-          clickCreate={() => isNew ? handleSubmit() : isScene ? handleUpdateScene() : handleUpdate()}
-          clickCancel={() => sowPopUp(true)}
-          text={isNew ? "Create" : "Update"}
-          icon={isNew ? "add" : "update"}
-        />
       </div>
     </>
   );

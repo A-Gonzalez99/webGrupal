@@ -38,9 +38,9 @@ function Home() {
   return (
     <>
       <TopMenu />
-      <Header title="Proyects" button={myItems} />
 
-      <div className="contenedorProyectos">
+      <div className="main-content">
+        <Header title="Proyects" button={myItems} />
         <div className="proyectContent">
           <CardProyects db={proyectos} />
         </div>

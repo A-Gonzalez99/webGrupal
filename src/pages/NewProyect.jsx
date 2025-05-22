@@ -94,6 +94,7 @@ function NewProyect() {
   return (
     <>
       <TopMenu />
+      <div className="main-content">
       <Header title="New Proyect" />
       <div className="panelCenter">
 
@@ -122,9 +123,9 @@ function NewProyect() {
 
 
       </div>
+      </div>
 
-
-      <div className="contentColum">
+      <div className="main-content">
         <ErrorPanel error={error} set={setError} />
         <h2>Name</h2>
         <input className="inputName"

@@ -27,15 +27,15 @@ export function Proyect() {
     <>
       <TopMenu />
       {/* <Header title="Proyect" button={myItems} /> */}
-      <ProyectBanner/>      
-      <Header title="Proyect" button={myItems} />    
-      <div>
-        <div className="contentColum">          
+   
+        <div className="main-content">       
+            <ProyectBanner/>   
+            <Header title="Proyect" button={myItems} />
             <ProyectName nam={proyecto ? proyecto.nombre : "Cargando nombre..."} />            
             <ProyectDescription des={proyecto ? proyecto.descripcion : "Cargando descripcion..."}/>
             <ProyectMenu/>
         </div>
-      </div>
+      
     </>
   );
   

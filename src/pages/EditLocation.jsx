@@ -71,6 +71,7 @@ function EditLocation() {
   return (
     <>
       <TopMenu />
+      <div className="main-content">
       <Header title="Edit Location" />
       <div className="panelCenter">
             <CardUpdateBanner
@@ -106,6 +107,7 @@ function EditLocation() {
       </div>
       <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={()=>navigate("/locations")} text="Update" icon="update" />
       <RemoveBelow click={deleteImage} tipe="1" text="Remove Location" />
+    </div>
     </>
   );
 }

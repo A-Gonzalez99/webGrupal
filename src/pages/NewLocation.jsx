@@ -68,38 +68,39 @@ function NewLocation() {
   return (
     <>
       <TopMenu />
-      <Header title="New Location" />
-      <div className="panelCenter">
-        <CardUpdateBanner
-          text="Update location image" 
-          className="bannerUpdate"
-          imagen={imagenBase64}
-          handleFileChange={handleImagenChange}
-        />
-      </div>
+        <div className="main-content">
+        <Header title="New Location" />
+        <div className="panelCenter">
+          <CardUpdateBanner
+            text="Update location image" 
+            className="bannerUpdate"
+            imagen={imagenBase64}
+            handleFileChange={handleImagenChange}
+          />
+        </div>
 
-      <div className="contentColum">
-        <ErrorPanel error={error} set={setError} />
+        <div className="contentColum">
+          <ErrorPanel error={error} set={setError} />
 
-        <h2>Name</h2>
-        <input
-          ref={inputName}
-          className="inputName"
-          placeholder="Location name"
+          <h2>Name</h2>
+          <input
+            ref={inputName}
+            className="inputName"
+            placeholder="Location name"
 
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-        <h2>Direccion</h2>
-        <input
-          ref={inputLocation}
-          className="inputDescription"
-          placeholder="Location direccion"
+            onChange={(e) => setName(e.target.value)}
+          ></input>
+          <h2>Direccion</h2>
+          <input
+            ref={inputLocation}
+            className="inputDescription"
+            placeholder="Location direccion"
 
-          onChange={(e) => setLocation(e.target.value)}
-        ></input>
-      </div>
+            onChange={(e) => setLocation(e.target.value)}
+          ></input>
+        </div>
       <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={() => navigate("/locations")} text="Create" icon="add" />
-
+      </div>
     </>
   );
 }

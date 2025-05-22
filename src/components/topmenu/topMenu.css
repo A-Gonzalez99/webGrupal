@@ -87,11 +87,11 @@ p{
 .infoPanal{
     display: flex;
     justify-content: space-between;
-    align-items: center;
-   
-   
+    align-items: flex-start;
+    flex-direction: column;
     z-index: 1;
     position: relative;
+
 }
 
 

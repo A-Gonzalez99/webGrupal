@@ -5,7 +5,7 @@ import { RemoveDatabaseStoryBoard } from "../../dataBase/DataBaseStoryBoard";
 import { useNavigate } from "react-router-dom";
 import { RemoveDataBaseLocations } from "../../dataBase/DataBaseLocations";
 
-function RemoveBelow({ text, tipe, click }) {
+function RemoveBelow({ text, tipe, click, clickRemove }) {
   const popUpRemove = useRef(null);
   const navigate = useNavigate();
   const inputText = useRef(null);
@@ -37,11 +37,13 @@ function RemoveBelow({ text, tipe, click }) {
 
       <div ref={popUpRemove} className="hidden">
         <div className="popUpRemovePanel">
-          <p>Remove image</p>
+          <p>{text}</p>
           <HorizontalDivider />
-          <p>Are you sure you want to delete the Image?</p>
+          <p>Are you sure you want to proceed with this action?</p>
           <p ref={textInfoRemove}>Type REMOVE to confirm</p>
           <input
+            className="inputName"
+            style={{paddingRight: "0px", paddingLeft: "0px"}}
             ref={inputText}
             onChange={(e) => setDescription(e.target.value)}
           ></input>
@@ -50,6 +52,7 @@ function RemoveBelow({ text, tipe, click }) {
           clickCreate={() => RemoveImage()}
           text="Delete"
           icon="delete"
+          clickCancel={() => sowPopUp()}
         />
       </div>
     </>

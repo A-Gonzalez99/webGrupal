@@ -25,6 +25,9 @@
     font-weight: 900;
     margin-top: 3px;
     font-size:small;
+     word-break: break-word;   /* Permite cortar palabras largas */
+    white-space: normal;      /* Permite saltos de línea */
+    overflow-wrap: break-word;/* Asegura el salto de línea en palabras largas */
 
 }
 
@@ -32,6 +35,9 @@
     color: #2d2d2d;
     font-weight: 100;
     font-size: small;
+     word-break: break-word;   /* Permite cortar palabras largas */
+    white-space: normal;      /* Permite saltos de línea */
+    overflow-wrap: break-word;/* Asegura el salto de línea en palabras largas */
 }
 
 
@@ -69,7 +75,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: flex-start;
+    align-items: flex-end;
+
 }
 
 .panelTitleCard p{
@@ -83,6 +90,9 @@
     transform: scale(1.04);
 }
 
+.cardInfo:hover h2{
+    text-decoration: underline;
+}
 
 .proyectContent{
     display: flex;

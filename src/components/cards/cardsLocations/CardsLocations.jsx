@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { GetStorageProyect } from "../../../controller/Controller";
 import { obtenerLocalizaciones } from "../../../services/locationService";
 
@@ -12,23 +12,24 @@ export function CardsLocations() {
         obtenerLocalizaciones(GetStorageProyect(), setProyecto, setError);
         console.log(proyecto);
     }, []);
-    
+
     return (
-        <div>
-            {proyecto.map((item, index) => (
-                <GetCardLocation index={item.id_localizacion} item={item} />
-            ))}
-        </div>
+        <>
+        {proyecto.map((item, index) => (
+            <GetCardLocation index={item.id_localizacion} item={item} />
+        ))}
+        </>
+     
     );
 
 }
 
 export function GetCardLocation({ index, item }) {
-  return (
-    <>
-      {cardProp(item, index)}
-    </>
-  );
+    return (
+        <>
+            {cardProp(item, index)}
+        </>
+    );
 }
 
 function cardProp(props, num) {
@@ -42,7 +43,7 @@ function cardProp(props, num) {
 
     return (
         <>
-            <div onClick={() => enviarDatos(num)} className="cardProyect">
+            {/* <div onClick={() => enviarDatos(num)} className="cardProyect">
                 <div className='panelTitleCard'>
                     <div className='panelDescriptionLocation'>
                         <p>{props.nombre}</p>
@@ -50,9 +51,43 @@ function cardProp(props, num) {
                     </div>
 
                 </div>
-                <img src={"data:image/png;base64,"+props.imagen} />
+                <img src={"data:image/png;base64," + props.imagen} />
+            </div> */}
+
+            <div className="cardInfo" onClick={() => enviarDatos(num)}>
+                <div className="cardProyect">
+                    <div className="panelTitleCard">
+                        <div className="panelIconoEditar">
+                            <span class="material-icons" >edit</span>
+                        </div>
+                    </div>
+                    <img src={"data:image/png;base64," + props.imagen} alt="Vista previa" />
+                    {/* <img src={props.imagen} /> */}
+                </div>
+                <div>
+                    <h2>{props.nombre}</h2>
+                    <p>{props.descripcion}</p>
+
+                </div>
             </div>
+
         </>
     )
 }
 
+// <div className="cardInfo" onClick={() => OpenProyect(index)}>
+//   <div className="cardProyect">
+//     <div className="panelTitleCard">
+//       <div className="panelIconoEditar">
+//           <span class="material-icons" >edit</span>
+//       </div>
+//     </div>
+//         <img src={"data:image/png;base64,"+props.imagen} alt="Vista previa" />
+//     {/* <img src={props.imagen} /> */}
+//   </div>
+//   <div>
+//     <h2>{props.nombre}</h2>
+//     <p>{props.descripcion}</p>
+
+//   </div>
+// </div>

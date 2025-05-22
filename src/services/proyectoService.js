@@ -40,7 +40,7 @@ export const obtenerStoryBoards = async (id, setProyecto, setError) => {
     const response = await axios.get(
       `http://localhost:8080/api/proyectos/${id}/storyboards`
     );
-
+    console.log(response.data);
     setProyecto(response.data);    
 
     if (setError) {

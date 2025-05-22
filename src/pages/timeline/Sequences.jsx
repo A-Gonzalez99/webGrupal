@@ -77,10 +77,10 @@ function Sequences() {
       <TopMenu />
       <ProyectBanner/>      
       <Header title="Sequences" button={myItems} />
-      <div >
+
+      <div className="contentColum">
         <div className="timeLineP">
 
-        <TimeLineBlockSequences/>
         </div>
         <TimeLineCaptionLableSequiences/>
       </div>
@@ -91,27 +91,36 @@ function Sequences() {
           <HorizontalDivider />
           <p>Name</p>
             <input
-          
+                    className="inputName"
+            style={{paddingRight: "0px", paddingLeft: "10px"}}
             onChange={(e) => setInputText(e.target.value)}
             type="text"
             placeholder="Name"
             />
           <p>Start"</p>
           <input
-         
+                   className="inputName"
+            style={{paddingRight: "0px", paddingLeft: "10px"}}
             onChange={(e) => setInputStart(e.target.value)}
             type="integer"
             placeholder="0"
             />
           <p>End"</p>
           <input
-         
+                   className="inputName"
+            style={{paddingRight: "0px", paddingLeft: "10px"}}
             onChange={(e) => setInputEnd(e.target.value)}
             type="integer"
             placeholder="1"
             />
           <p>Color</p>
           <input
+            className="inputName"
+            style={{
+              paddingRight: "0px",
+              paddingLeft: "0px",
+              backgroundColor: inputColor,
+            }}
             onChange={(e) => setInputColor(e.target.value)}
             type="color"
             placeholder="Color"

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import VerticalDivider from "../VerticalDivider";
 import { useNavigate } from 'react-router-dom';
 
-function TimeLineCaption({props,accion}) {
+function TimeLineCaption({props,accion, edit}) {
   const panelCaption = useRef(null);
   console.log(props.page)
   function mouseEnter() {
@@ -22,8 +22,6 @@ function TimeLineCaption({props,accion}) {
     <>
       <div ref={panelCaption} className="timeLineCaption" onClick={accion}>
         <div
-          onMouseEnter={() => mouseEnter()}
-          onMouseLeave={() => mouseEnter()}
           className="timeLineCaptionContainer"
         >
           <div className="colorCaption" style={{ backgroundColor: "#"+props.color }}></div>

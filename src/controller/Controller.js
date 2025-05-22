@@ -22,6 +22,10 @@ export function GetStorageSequences(){
   return GetStorage("sequences")
 }
 
+export function GetStorageScenes(){
+  return GetStorage("scenes")
+}
+
 function GetStorage(name){
     var num = localStorage.getItem(name);
     if (num === null) {

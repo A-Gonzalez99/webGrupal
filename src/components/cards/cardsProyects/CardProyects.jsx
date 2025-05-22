@@ -27,11 +27,11 @@ function cardProp(props, index) {
     <>
     <div className="cardInfo" onClick={() => OpenProyect(index)}>
       <div className="cardProyect">
-        {/* <div className="panelTitleCard">
-          <div className="">
-            <p>{props.nombre}</p>
+        <div className="panelTitleCard">
+          <div className="panelIconoEditar">
+              <span class="material-icons" >more_vert</span>
           </div>
-        </div> */}
+        </div>
             <img src={"data:image/png;base64,"+props.imagen} alt="Vista previa" />
         {/* <img src={props.imagen} /> */}
       </div>

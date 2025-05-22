@@ -12,12 +12,12 @@ export function CardStoryBoard() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    obtenerStoryBoards(GetStorageProyect(), setProyecto, setError);    
+    obtenerStoryBoards(GetStorageProyect(), setProyecto, setError);
   }, []);
   return (
-    <div>
+    <div className="proyectContent">
       {proyecto.map((item, index) => (
-        <GetCardStoryBoard  index={item.id_storyboard} item={item} />
+        <GetCardStoryBoard index={item.id_storyboard} item={item} />
       ))}
     </div>
   );
@@ -43,12 +43,23 @@ function cardProp(props, num) {
 
   return (
     <>
-      <div className="cardStoryBoard">
-        <button onClick={() => enviarDatos(num)} className="buttonStoryBoard">
-          <img src={"data:image/png;base64,"+props.imagen} />
-        </button>
-        <p>{props.descripcion}</p>
+      <div className="cardInfo" onClick={() => enviarDatos(num)}>
+        <div className="cardProyect">
+          <div className="panelTitleCard">
+            <div className="panelIconoEditar">
+              <span class="material-icons" >edit</span>
+            </div>
+          </div>
+          <img src={"data:image/png;base64," + props.imagen} alt="Vista previa" />
+          {/* <img src={props.imagen} /> */}
+        </div>
+        <div>
+          <h2>{props.descripcion}</h2>
+          {/* <p>{props.descripcion}</p> */}
+
+        </div>
       </div>
+
     </>
   );
 }

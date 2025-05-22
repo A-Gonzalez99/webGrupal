@@ -104,7 +104,7 @@ function EditLocation() {
           onChange={(e) => setLocation(e.target.value)}
         ></input>
       </div>
-      <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={()=>navigate("/locations")} text="Save" icon="add" />
+      <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={()=>navigate("/locations")} text="Update" icon="update" />
       <RemoveBelow click={deleteImage} tipe="1" text="Remove Location" />
     </>
   );

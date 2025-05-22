@@ -1,15 +1,16 @@
 import { GetDataBaseSequences } from "../../dataBase/DataBaseSequences";
 import VerticalDivider from "../VerticalDivider";
 import TimeLineCaption from "./TimeLineCaption";
-import {useState, useEffect } from "react";
-import {obtenerSecuencia} from "../../services/secuenciaService";
+import { useState, useEffect } from "react";
+import { obtenerSecuencia } from "../../services/secuenciaService";
 import { GetStorageProyect } from "../../controller/Controller";
 import { useNavigate } from 'react-router-dom';
+import TimeLineBlockSequences from "./TimeLineBlockSequences";
 
 function TimeLineCaptionLableSequiences() {
 
   const db = GetDataBaseSequences();
-  const page ="/scenes"
+  const page = "/scenes"
   const [proyecto, setProyecto] = useState([]);
   const [error, setError] = useState(null);
 
@@ -32,14 +33,17 @@ function TimeLineCaptionLableSequiences() {
     }
   }, [proyecto]);
 
-    const navigate = useNavigate();
-  
-    function changePage(){
-      navigate(page)
-    }
+  const navigate = useNavigate();
+
+  function changePage() {
+    navigate(page)
+  }
 
   return (
     <>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
+        <TimeLineBlockSequences db={proyecto} />
+      </div>
       <div className="panelHeaderLable">
         <VerticalDivider />
         <p>Start</p>
@@ -47,15 +51,19 @@ function TimeLineCaptionLableSequiences() {
         <p>End</p>
       </div>
       <div className="panelColum">
-        {proyecto.map((item, index) => (
-          <TimeLineCaption props = {item} accion={
-            () => {
-              localStorage.setItem("sequences", item.id_secuencia);
-              navigate(page)
-            }
-            
-          } />        
-        ))}      
+        {[...proyecto]
+          .sort((a, b) => Number(a.min_inicio) - Number(b.min_inicio))
+          .map((item, index) => (
+            <TimeLineCaption
+              key={item.id_secuencia || index}
+              props={item}
+              accion={() => {
+                localStorage.setItem("sequences", item.id_secuencia);
+                navigate(page);
+              }}
+            />
+          ))
+        }
       </div>
     </>
   );

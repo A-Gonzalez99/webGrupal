@@ -2,6 +2,25 @@ import axios from "axios";
 import { login } from "../services/usuarioService";
 
 export const iniciarSecion = async (email, password, setError, nav) => {
+  // Validar campos vacíos
+  if (!email || !password) {
+    setError("Please fill in all fields.");
+    return;
+  }
+
+  // Validar formato de email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    setError("Please enter a valid email address.");
+    return;
+  }
+
+  // Validar longitud de contraseña
+  if (password.length < 6) {
+    setError("Password must be at least 6 characters long.");
+    return;
+  }
+
   try {
     const response = await login(email, password);
     localStorage.setItem("token", response.data.token);

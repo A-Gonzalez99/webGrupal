@@ -50,9 +50,9 @@ function AppContent() {
       // Verifica si hay token y redirige según el caso
       const token = localStorage.getItem("token");
       if (token) {
-        // Si hay token y hay conexión, redirige a home
+        // Si hay token y hay conexión, mantiene la ruta actual
         if (isConnected) {
-          navigate("/home");
+          // No redirigir, mantener la ruta actual
         } else {
           // Si hay token pero no hay conexión, redirige a offline
           navigate("/offline");

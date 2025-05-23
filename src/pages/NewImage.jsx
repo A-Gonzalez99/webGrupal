@@ -15,6 +15,7 @@ function NewImage() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const [imagenBase64, setImagenBase64] = useState("");
+  const [caracteresRestantes, setCaracteresRestantes] = useState(255);
 
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
@@ -78,13 +79,23 @@ function NewImage() {
       <div className="contentColum">
         <ErrorPanel error={error} set={setError} />
         <h2>Description</h2>
-        <input
-          className="inputDescription"
-          placeholder="Image description"
-          ref={inputText}
-          onChange={(e) => setDescription(e.target.value)}
-
-        ></input>
+        <div className="textarea-container">
+          <textarea
+            className="inputDescription"
+            placeholder="Image description"
+            ref={inputText}
+            onChange={(e) => {
+              const texto = e.target.value;
+              setDescription(texto);
+              setCaracteresRestantes(255 - texto.length);
+            }}
+            maxLength="255"
+            rows="4"
+          />
+          <div className="contador-caracteres">
+            {caracteresRestantes} characters remaining
+          </div>
+        </div>
       </div>
       <PanelButtonsBelow clickCreate={()=>handleSubmit()} clickCancel={()=>navigate("/storyboard")} text="Create" icon="add" />
       </div>

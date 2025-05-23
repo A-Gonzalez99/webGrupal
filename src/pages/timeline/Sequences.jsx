@@ -13,6 +13,7 @@ import axios from 'axios';
 import { GetDataBaseSequences } from "../../dataBase/DataBaseSequences";
 import { use } from "react";
 import { useEffect } from "react";
+import { ErrorPanel } from "../../components/errorPanel/ErrorPanel";
 
 function Sequences() {
   const navigate = useNavigate();
@@ -41,15 +42,38 @@ function Sequences() {
   }, []);
 
 
-  const handleSubmit = async (e) => {
+  const validateAndSubmit = async () => {
+    if (!inputText) {
+      setError("Name field is required.");
+      return;
+    }
+
+    if (inputText.length < 3) {
+      setError("Name must be at least 3 characters long.");
+      return;
+    }
+
+    if (!inputStart || !inputEnd) {
+      setError("Start and end minutes are required.");
+      return;
+    }
+
+    if (inputStart >= inputEnd) {
+      setError("Start minute must be less than end minute.");
+      return;
+    }
+
+    const colorValue = inputColor || "#FFFFFF";
+
+
     const ima = {
       min_final: inputEnd,
-      min_inicio:inputStart,
+      min_inicio: inputStart,
       nombre: inputText,
       proyecto: {
         id_proyecto: localStorage.getItem("proyect")
       },
-      color: inputColor ? inputColor.replace('#', '') : "",
+      color: colorValue.replace('#', '') ,
     };
 
     console.log(ima);
@@ -67,13 +91,18 @@ function Sequences() {
       setError(null);
       window.location.reload();
     } catch (err) {
-      
-      setError(err.response?.data || "Error creating storyboard.");
+      setError(err.response?.data || "An error occurred while creating the sequence.");
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await validateAndSubmit();
   };
 
   return (
     <>
+    <ErrorPanel error={error} set={setError} />
       <TopMenu />
       <div className="main-content">
       <ProyectBanner/>      
@@ -121,16 +150,17 @@ function Sequences() {
             }}
             onChange={(e) => setInputColor(e.target.value)}
             type="color"
-            placeholder="Color"
+            placeholder="#FFFFFF"
           />
 
-          <PanelButtonsBelow
-            clickCreate={() => handleSubmit()}
-            clickCancel={() => sowPopUp()}
-            text="Create"
-            icon="new"
-          />
+
         </div>
+        <PanelButtonsBelow
+            clickCreate={validateAndSubmit}
+            clickCancel={() => sowPopUp()}
+            text={"Create" }
+            icon={"add" }
+          />
       </div>
           </div>
     </>   

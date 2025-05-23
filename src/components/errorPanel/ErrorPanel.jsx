@@ -5,13 +5,14 @@ export function ErrorPanel ({error, set}){
     if(error){
         return (
             <div className="panelError">
-                <div className="panelErrorColor"></div>
-                <div className='divError'>
-                    <button className="buttonError" onClick={() => set("")}>X</button>
+                <div className="errorIconContainer">
+                    <span className="material-icons">error</span>
                 </div>
-                <div className='divErrorText'>
-                 
+                <div className='errorText'>
                     <p className="textError">{error}</p>
+                </div>
+                <div className='closeButton'>
+                    <button className="buttonError" onClick={() => set("")}>X</button>
                 </div>
             </div>            
         );

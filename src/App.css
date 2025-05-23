@@ -138,33 +138,32 @@
   margin-left: 6px;
 }
 
-.inputName {
+.inputName, .inputDescription {
   background-color: #ffffff;
   border: solid, #d9d9d9;
   border-radius: 12px;
-  padding-inline-start: 16px;
-  padding-inline-end: 16px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  height: 24px;
-  height: auto;
-  
+  padding: 12px 16px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-
-
 .inputDescription {
-  background-color: #ffffff;
-  border: solid, #d9d9d9;
-  border-radius: 12px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-right: 16px;
-  padding-left: 16px;
-  height: 24px;
-  margin-right: 20px;
   height: 200px;
-  width: 100%;
+  resize: none;
+}
+
+.contador-caracteres {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #666;
+  font-size: 14px;
+}
+
+.textarea-container, .input-container {
+  position: relative;
+  margin-bottom: 20px;
 }
 
 input[type="text"]::placeholder {
@@ -176,7 +175,8 @@ input[type="text"]::placeholder {
 
 .panelButtonsBelow {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -305,14 +305,16 @@ input[type="text"]::placeholder {
 }
 
 .removeBelow {
-  margin: 20px;
-  margin-top: 0px;
+  /* margin: 20px; */
+  margin-top: 24px;
+  margin-bottom: 12px;
 }
 
 .removeBelow p {
-  color: #a2906c;
+  color: #c00303c5;
   margin-top: 6px;
-  font-size: 12px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .popUpRemoveBack {
@@ -736,7 +738,6 @@ input[type="text"]::placeholder {
 
 .panelLoginButtonNewUserTop input{
   width: 100%;
-
 }
 
 .panelLoginButtonNewUserTop select{
@@ -752,8 +753,7 @@ input[type="text"]::placeholder {
 
 }
 
-
-.LoginSeparator{
+.panelLoginButtonNewUserTop .inputDescription {
   width:32px;
 }
 
@@ -1003,7 +1003,7 @@ input[type="text"]::placeholder {
   }
 
   .panelIconoEditar span {
-    
+    margin-bottom: 0px;
   }
 
 .cardInfo:hover .panelIconoEditar {

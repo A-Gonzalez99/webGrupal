@@ -35,7 +35,7 @@ function TopMenu() {
           <p onClick={() => navigate("/sequences")}>Time line</p>
           <HorizontalDivider />
 
-          <p>Script</p>
+          {/* <p>Script</p> */}
         </>
       )
     }
@@ -57,7 +57,7 @@ function TopMenu() {
               <ButtonTopMenu buttonId="button-settings" icon="" texto={"Storyboard"} click={() => navigate("/Storyboard")} />
               <ButtonTopMenu buttonId="button-settings" icon="" texto={"Locations"} click={() => navigate("/locations")} />
               <ButtonTopMenu buttonId="button-settings" icon="" texto={"Time line"} click={() => navigate("/sequences")} />
-              <ButtonTopMenu buttonId="button-settings" icon="" texto={"Script"} click={() => navigate("/Home")} />
+              {/* <ButtonTopMenu buttonId="button-settings" icon="" texto={"Script"} click={() => navigate("/Home")} /> */}
             </>
           )}
         </div>

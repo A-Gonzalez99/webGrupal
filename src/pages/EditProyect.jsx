@@ -22,17 +22,25 @@ export function EditProyect() {
   
   const navigate = useNavigate();
 
-  const [proyecto, setProyecto] = useState();
+  const [proyecto, setProyecto] = useState(null);
   const [error, setError] = useState(null);
-
-  const [nombre, setNombre] = useState();
-  const [descripcion, setDescripcion] = useState();
+  const [nombre, setNombre] = useState("");
+  const [descripcion, setDescripcion] = useState("");
   const [imagenBase64, setImagenBase64] = useState("");
+  const [inputNombre, setInputNombre] = useState("");
+  const [inputDescripcion, setInputDescripcion] = useState("");
 
-  useEffect(() => {    
-    obtenerProyecto(num,setProyecto,setError);
+  useEffect(() => {
+    obtenerProyecto(GetStorageProyect(), setProyecto, setError);
     document.title = "Edit Proyect - Shot Reel";
   }, []);
+
+  useEffect(() => {
+    if (proyecto) {
+      setInputNombre(proyecto.nombre || "");
+      setInputDescripcion(proyecto.descripcion || "");
+    }
+  }, [proyecto]);
 
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
@@ -49,8 +57,8 @@ export function EditProyect() {
   const handleSubmit = async (e) => {
 
     const datosActualizados = {
-      nombre: nombre ? nombre : proyecto.nombre,
-      descripcion: descripcion ? descripcion : proyecto.descripcion,
+      nombre: inputNombre ? inputNombre : proyecto.nombre,
+      descripcion: inputDescripcion ? inputDescripcion : proyecto.descripcion,
       imagen: imagenBase64 ? imagenBase64.split(',')[1] : proyecto.imagen,
     };
 
@@ -76,6 +84,7 @@ export function EditProyect() {
   return ( 
     <>
       <TopMenu />
+      <div className="main-content">
       <Header title="Edit Proyect" />
       <div className="panelCenter">
         <CardUpdateBanner
@@ -98,17 +107,18 @@ export function EditProyect() {
         <h2>Name</h2>
         <input
           ref={inputName}
+          value={inputNombre}
           className="inputName"
-          placeholder={proyecto ? proyecto.nombre : "Name"}
-          onChange={(e) => setNombre(e.target.value)}>
+          onChange={(e) => setInputNombre(e.target.value)}>
         </input>
 
         <h2>Description</h2>
         <input
           ref={inputLocation}
+          value={inputDescripcion}
           className="inputDescription"
-          placeholder={proyecto ? proyecto.descripcion : "Description"}
-          onChange={(e) => setDescripcion(e.target.value)}>
+        
+          onChange={(e) => setInputDescripcion(e.target.value)}>
         </input>
 
         <div className="panelRow">
@@ -133,6 +143,8 @@ export function EditProyect() {
         clickCreate={handleSubmit} 
         text={"Edit"} icon={"update"} />
       <RemoveBelow click={deleteImage} tipe="1" text="Remove Image" />
+    </div>
     </>
+    
   );
 }

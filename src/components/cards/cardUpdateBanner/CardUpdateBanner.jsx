@@ -2,8 +2,8 @@
 
 function CardUpdateBanner({text, imagen,handleFileChange}) {
 
-    if(imagen==null){
-        imagen = "default-image.webp"
+    if(!imagen){
+        imagen = "https://i.postimg.cc/15R4cP4M/banner.jpg"
     }
 
     if(text==null){
@@ -22,7 +22,7 @@ function CardUpdateBanner({text, imagen,handleFileChange}) {
                     id="banner-input"
                 />
                 <label className="panelTitleCard" htmlFor="banner-input" style={{ cursor: "pointer" }}>
-                    <span>{text}</span>
+                    <p>{text}</p>
                 </label>
                 <img
                     src={imagen || "default-image.webp"}

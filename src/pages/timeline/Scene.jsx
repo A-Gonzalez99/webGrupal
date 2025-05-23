@@ -13,6 +13,7 @@ import { EditSceneStoryBoard } from "../../components/scene/EditSceneStoryBoard"
 import { EditSceneLocation } from "../../components/scene/EditSceneLocation";
 import { EditSceneActors } from "../../components/scene/EditSceneActors";
 import { EditSceneScript } from "../../components/scene/EditSceneScript";
+import { ErrorPanel } from "../../components/errorPanel/ErrorPanel";
 
 function Scene() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function Scene() {
   const [boolEditSceneLocation, setBoolEditSceneLocation] = useState(0);
   const [boolEditSceneActors, setBoolEditSceneActors] = useState(0);
   const [boolEditSceneScripts, setBoolEditSceneScript] = useState(0);
+  const [error, setError] = useState("");
 
   const itemsScene = [
     <ButtonTopMenu icon={"edit"} text={""} click={() => setBoolEditScene(1)} />,
@@ -89,6 +91,7 @@ function Scene() {
         <ScriptScene />
       </div>
       <EditScene valor={boolEditScene} setValor={setBoolEditScene} />
+      <ErrorPanel error={error} set={setError} />
 
       <EditSceneStoryBoard
         valor={boolEditSceneStoryBoard}

@@ -62,18 +62,19 @@ function Storyboard() {
 
   return (
     <>
-    <TopMenu />
+      {showPopup && (<TopMenu />)}
 
-    <div className="main-content">
 
       {!showPopup && (
         <>
-          <ProyectBanner />
-          <Header title="Storyboard" button={myItems} />
-       
-              <CardStoryBoard />
-          
-        
+          <TopMenu />
+          <div className="main-content">
+            <ProyectBanner />
+            <Header title="Storyboard" button={myItems} />
+
+            <CardStoryBoard />
+
+          </div>
         </>
       )}
 
@@ -119,7 +120,6 @@ function Storyboard() {
 
         </div>
       </div>
-    </div>
     </>
   );
 }

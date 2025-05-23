@@ -32,16 +32,25 @@ function UserSettings() {
       const response = await axios.get(
         `http://localhost:8080/api/usuarios/`+id_usuario
       );
-      setProyectos(response.data); 
-      setInputFirstName(response.data.nombre); 
-      setInputLastName(response.data.apellido); 
-      setInputEmail(response.data.correo); 
-      setInputPassword(response.data.contrasenna); 
+      
+      // Verificar si la respuesta tiene los datos esperados
+      if (response.data && typeof response.data === 'object') {
+        setProyectos(response.data); 
+        setInputFirstName(response.data.nombre || ""); 
+        setInputLastName(response.data.apellido || ""); 
+        setInputEmail(response.data.correo || ""); 
+        setInputPassword(response.data.contrasenna || ""); 
+      } else {
+        setInputFirstName(""); 
+        setInputLastName(""); 
+        setInputEmail(""); 
+        setInputPassword(""); 
+      }
     } catch (err) {
-      setInputFirstName(" "); 
-      setInputLastName(" "); 
-      setInputEmail(" "); 
-      setInputPassword(" "); 
+      setInputFirstName(""); 
+      setInputLastName(""); 
+      setInputEmail(""); 
+      setInputPassword(""); 
     }
   };
 

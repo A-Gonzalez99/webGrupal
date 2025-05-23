@@ -32,8 +32,7 @@ function cardProp(props, index) {
               <span class="material-icons" >more_vert</span>
           </div>
         </div>
-            <img src={"data:image/png;base64,"+props.imagen} alt="Vista previa" />
-        {/* <img src={props.imagen} /> */}
+        <img src={props.imagen ? "data:image/png;base64,"+props.imagen : "https://i.postimg.cc/15R4cP4M/banner.jpg"} alt="Vista previa" />        {/* <img src={props.imagen} /> */}
       </div>
       <div>
         <h2>{props.nombre}</h2>

@@ -14,15 +14,16 @@ function NewLocation() {
   const inputLocation = useRef(null);
   const inputName = useRef(null);
 
-  const [name, setName] = useState(inputLocation);
-  const [location, setLocation] = useState(inputName);
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
   const [error, setError] = useState(null);
   const [imagenBase64, setImagenBase64] = useState("");
+  const [caracteresRestantesNombre, setCaracteresRestantesNombre] = useState(50);
+  const [caracteresRestantes, setCaracteresRestantes] = useState(255);
 
   useEffect(() => {
     document.title = "New Location - Shot Reel";
   }, []);
-
 
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
@@ -36,7 +37,17 @@ function NewLocation() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const validateAndSubmit = async () => {
+    if (!name) {
+      setError("Name field is required.");
+      return;
+    }
+
+    if (name.length < 3) {
+      setError("Name must be at least 3 characters long.");
+      return;
+    }
+
     const localizacion = {
       nombre: name,
       descripcion: location,
@@ -61,8 +72,13 @@ function NewLocation() {
       setError(null);
       navigate("/locations");
     } catch (err) {
-      setError("Please check that the name and description fields are not deleted and that the description does not exceed 255 characters.");
+      setError("An error occurred while creating the location.");
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await validateAndSubmit();
   };
 
   return (
@@ -83,23 +99,43 @@ function NewLocation() {
           <ErrorPanel error={error} set={setError} />
 
           <h2>Name</h2>
-          <input
-            ref={inputName}
-            className="inputName"
-            placeholder="Location name"
-
-            onChange={(e) => setName(e.target.value)}
-          ></input>
+          <div className="input-container">
+            <input
+              ref={inputName}
+              className="inputName"
+              placeholder="Location name"
+              onChange={(e) => {
+                const texto = e.target.value;
+                setName(texto);
+                setCaracteresRestantesNombre(50 - texto.length);
+              }}
+              maxLength="50"
+            />
+            <div className="contador-caracteres">
+              {caracteresRestantesNombre} characters remaining
+            </div>
+          </div>
+          
           <h2>Direccion</h2>
-          <input
-            ref={inputLocation}
-            className="inputDescription"
-            placeholder="Location direccion"
-
-            onChange={(e) => setLocation(e.target.value)}
-          ></input>
+          <div className="textarea-container">
+            <textarea
+              ref={inputLocation}
+              className="inputDescription"
+              placeholder="Location direccion"
+              onChange={(e) => {
+                const texto = e.target.value;
+                setLocation(texto);
+                setCaracteresRestantes(255 - texto.length);
+              }}
+              maxLength="255"
+              rows="4"
+            />
+            <div className="contador-caracteres">
+              {caracteresRestantes} characters remaining
+            </div>
+          </div>
         </div>
-      <PanelButtonsBelow clickCreate={() => handleSubmit()} clickCancel={() => navigate("/locations")} text="Create" icon="add" />
+      <PanelButtonsBelow clickCreate={validateAndSubmit} clickCancel={() => navigate("/locations")} text="Create" icon="add" />
       </div>
     </>
   );

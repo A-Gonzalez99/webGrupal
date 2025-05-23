@@ -1,44 +1,112 @@
 .panelError {
-    display: flex; /* Essential for Flexbox layout */
-    flex-direction: row; /* Arrange items horizontally */
-    flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
-    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     background-color: #2e292a;
-    border-radius: 12px;
-    padding: 12px;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    border-radius: 100px;
+    padding: 8px 12px;
+    width: 90%;
+    max-width: 600px;
+    margin: 12px auto;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.panelErrorColor {
-   display:flex ;
-    background-color: red;
-    width: 20px;
-    height: 100%;
 
-}
+    
 
-.buttonError {
-   background-color: red;
-   color: white;
-}
-
-.divError{
+.errorIconContainer {
     display: flex;
-    width: 100%;
-    justify-content: flex-end
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin: 16px;
+}
+
+.errorIcon {
+    color: #FF4444 !important;
+    font-size: 16px;
+}
+
+.errorIcon {
+    color: white;
+    font-size: 16px;
+}
+
+.errorText {
+    flex: 1;
+    margin: 0 16px;
+    display: flex;
+    align-items: center;
 }
 
 .textError {
-    display: flex; /* Essential for Flexbox layout */
-    flex-direction: row; /* Arrange items horizontally */
-    flex-wrap: wrap; /* Wrap items to a new line if they don't fit */
+    color: white;
+    margin: 0;
+    font-size: 14px;
+    text-align: left;
 }
 
-.divErrorText{
+.closeButton {
     display: flex;
-    width: 100%;
-    justify-content: center
+    align-items: center;
+}
 
+.buttonError {
+    background-color: #FF4444;
+    color: white;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    font-size: 14px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6;
+   
+}
+
+.errorContent {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-left: 12px;
+}
+
+.closeButton {
+    display: flex;
+    justify-content: flex-end;
+    margin: 12px;
+}
+
+.buttonError {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.errorText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.textError {
+    color: white;
+    margin: 0;
+    font-size: 14px;
+    text-align: center;
 }

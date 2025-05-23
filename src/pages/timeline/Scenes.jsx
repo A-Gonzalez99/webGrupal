@@ -17,10 +17,13 @@ import RemoveBelow from "../../components/remove/RemoveBelow";
 import { ProyectBanner } from "../../components/proyect/ProyectBanner";
 import { actualizarEscena, obtenerEscenaId, eliminarEscena } from "../../services/escenasService";
 import { GetStorageScenes } from "../../controller/Controller";
+import { ErrorPanel } from "../../components/errorPanel/ErrorPanel";
 
 function Scenes() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [error2, setError2] = useState(null);
+
   const [inputText, setInputText] = useState(null);
   const [inputStart, setInputStart] = useState(null);
   const [inputEnd, setInputEnd] = useState(null);
@@ -42,7 +45,7 @@ function Scenes() {
     setIsNew(isNew);
     setIsScene(isScened);
 
-    obtenerEscenaId(GetStorageScenes(), setEscena, setError);
+    obtenerEscenaId(GetStorageScenes(), setEscena, setError2);
     console.log(escena);
 
     // Para modo edición de secuencia (no escena)
@@ -69,7 +72,7 @@ function Scenes() {
   }
 
   useEffect(() => {
-    obtenerSecuenciaId(GetStorageSequences(), setProyecto, setError);
+    obtenerSecuenciaId(GetStorageSequences(), setProyecto, setError2);
     console.log(proyecto);
     document.title = "Scenes - Shot Reel";
   }, []);
@@ -96,32 +99,64 @@ function Scenes() {
   };
 
   const handleUpdate = async (e) => {
-    actualizarSecuencia(GetStorageSequences(), {
-      min_final: inputEnd,
-      min_inicio: inputStart,
-      nombre: inputText,
-      proyecto: {
-        id_proyecto: localStorage.getItem("proyect")
-      },
-      color: inputColor ? inputColor.replace('#', '') : "",
-    }, setError);
+    try {
+      await actualizarSecuencia(GetStorageSequences(), {
+        min_final: inputEnd,
+        min_inicio: inputStart,
+        nombre: inputText,
+        proyecto: {
+          id_proyecto: localStorage.getItem("proyect")
+        },
+        color: inputColor ? inputColor.replace('#', '') : "",
+      });
+      setError(null);
+    } catch (err) {
+      // setError(err.response?.data.error || "Error updating sequence.");
+    }
     window.location.reload();
   }
 
   const handleUpdateScene = async (e) => {
-    actualizarEscena(GetStorageScenes(), {
-      min_final: inputEnd,
-      min_inicio: inputStart,
-      nombre: inputText,
-      secuencia: {
-        id_secuencia: GetStorageSequences()
-      },
-      color: inputColor ? inputColor.replace('#', '') : "",
-    }, setError);
+    try {
+      await actualizarEscena(GetStorageScenes(), {
+        min_final: inputEnd,
+        min_inicio: inputStart,
+        nombre: inputText,
+        secuencia: {
+          id_secuencia: GetStorageSequences()
+        },
+        color: inputColor ? inputColor.replace('#', '') : "",
+      });
+      setError(null);
+    } catch (err) {
+      setError(err.response?.data.error || "Error updating scene.");
+    }
     window.location.reload();
   }
 
-  const handleSubmit = async (e) => {
+  const validateAndSubmit = async () => {
+    if (!inputText) {
+      setError("Name field is required.");
+      return;
+    }
+
+    if (inputText.length < 3) {
+      setError("Name must be at least 3 characters long.");
+      return;
+    }
+
+    if (!inputStart || !inputEnd) {
+      setError("Start and end minutes are required.");
+      return;
+    }
+
+    if (inputStart >= inputEnd) {
+      setError("Start minute must be less than end minute.");
+      return;
+    }
+
+    const colorValue = inputColor || "#FFFFFF";
+
     const ima = {
       min_final: inputEnd,
       min_inicio: inputStart,
@@ -129,7 +164,7 @@ function Scenes() {
       secuencia: {
         id_secuencia: GetStorageSequences()
       },
-      color: inputColor ? inputColor.replace('#', '') : "",
+      color: colorValue.replace('#', '') ,
     };
 
     try {
@@ -145,14 +180,19 @@ function Scenes() {
       setError(null);
       window.location.reload();
     } catch (err) {
-
-      setError(err.response?.data || "Error creating storyboard.");
+      setError(err.response?.data.error || "Error creating scene.");
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await validateAndSubmit();
   };
 
   return (
     <>
       <TopMenu />
+      <ErrorPanel error={error} set={setError} />
       <div className="main-content">
         <ProyectBanner />
         <Header title={"Scenes to " + proyecto.nombre} button={myItems} />
@@ -219,7 +259,7 @@ function Scenes() {
           </div>
 
           <PanelButtonsBelow
-            clickCreate={() => isNew ? handleSubmit() : isScene ? handleUpdateScene() : handleUpdate()}
+            clickCreate={() => isNew ? handleSubmit({ preventDefault: () => {} }) : isScene ? handleUpdateScene() : handleUpdate()}
             clickCancel={() => sowPopUp(true)}
             text={isNew ? "Create" : "Update"}
             icon={isNew ? "add" : "update"}
